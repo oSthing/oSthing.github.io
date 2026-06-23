@@ -2,43 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://example.com</loc>
-    <lastmod>2026-06-18T09:00:23.694Z</lastmod>
+    <lastmod>2026-06-23T08:47:21.338Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://example.com/blog</loc>
-    <lastmod>2026-06-18T09:00:23.694Z</lastmod>
+    <lastmod>2026-06-23T08:47:21.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://example.com/projects</loc>
-    <lastmod>2026-06-18T09:00:23.694Z</lastmod>
+    <lastmod>2026-06-23T08:47:21.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://example.com/links</loc>
-    <lastmod>2026-06-18T09:00:23.694Z</lastmod>
+    <lastmod>2026-06-23T08:47:21.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://example.com/about</loc>
-    <lastmod>2026-06-18T09:00:23.694Z</lastmod>
+    <lastmod>2026-06-23T08:47:21.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://example.com/contact</loc>
-    <lastmod>2026-06-18T09:00:23.694Z</lastmod>
+    <lastmod>2026-06-23T08:47:21.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://example.com/blog/hello-world</loc>
-    <lastmod>2026-06-16T00:00:00.000Z</lastmod>
+    <lastmod>2026-06-15T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -49,8 +49,14 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://example.com/blog/crrypto-wp-1</loc>
+    <loc>https://example.com/blog/crypto-wp-1</loc>
     <lastmod>2026-06-17T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://example.com/blog/crypto-wp-2</loc>
+    <lastmod>2026-06-23T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
