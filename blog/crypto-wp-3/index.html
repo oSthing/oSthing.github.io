@@ -1,0 +1,365 @@
+<!DOCTYPE html><html lang="zh"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="题出自2025熵密杯Flag3，主要学习一下密码机的调用方式以及CFB相关的一些利用方式"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://osthing.github.io/blog/crypto-wp-3"><link rel="alternate" type="application/rss+xml" title="oSthing's blog" href="/rss.xml"><meta name="generator" content="Astro v5.18.2"><title>密码机一小题 — oSthing&#39;s blog</title><meta property="og:type" content="website"><meta property="og:title" content="密码机一小题 — oSthing's blog"><meta property="og:description" content="题出自2025熵密杯Flag3，主要学习一下密码机的调用方式以及CFB相关的一些利用方式"><meta property="og:url" content="https://osthing.github.io/blog/crypto-wp-3"><meta property="og:image" content="https://osthing.github.io/og-default.png"><meta property="og:site_name" content="oSthing's blog"><meta property="og:locale" content="zh-CN"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="密码机一小题 — oSthing's blog"><meta name="twitter:description" content="题出自2025熵密杯Flag3，主要学习一下密码机的调用方式以及CFB相关的一些利用方式"><meta name="twitter:image" content="https://osthing.github.io/og-default.png"><link rel="preconnect" href="https://rsms.me/"><link rel="stylesheet" href="https://rsms.me/inter/inter.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono@v2.304/web/css/jetbrains-mono.css"><link rel="stylesheet" href="/_astro/_slug_.B55fO9ck.css"></head> <body class="min-h-screen flex flex-col bg-bg-light dark:bg-bg-dark text-fg-light dark:text-fg-dark antialiased"> <script>
+  (function () {
+    try {
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = stored ?? (prefersDark ? 'dark' : 'light');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (_) {
+      /* no-op */
+    }
+  })();
+</script> <header class="border-b border-border-light dark:border-border-dark sticky top-0 z-30 bg-bg-light/80 dark:bg-bg-dark/80 backdrop-blur"> <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4"> <a href="/" class="flex items-center gap-2 font-mono text-sm font-medium tracking-tight"> <span class="inline-flex h-2 w-2 rounded-full bg-accent-light dark:bg-accent-dark"></span> <span>osthing&#39;s blog</span> </a> <nav class="hidden md:flex items-center gap-1 text-sm"> <a href="/" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> home </a><a href="/blog" class="rounded-md px-3 py-1.5 transition-colors text-fg-light dark:text-fg-dark"> blog </a><a href="/projects" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> projects </a><a href="/links" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> links </a><a href="/about" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> about </a><a href="/contact" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> contact </a> </nav> <div class="flex items-center gap-2 text-sm text-muted-light dark:text-muted-dark"> <a href="https://github.com/oSthing" rel="noopener noreferrer" target="_blank" class="rounded-md px-2 py-1 hover:text-fg-light dark:hover:text-fg-dark"> GitHub </a><a href="/rss.xml" rel="noopener noreferrer" class="rounded-md px-2 py-1 hover:text-fg-light dark:hover:text-fg-dark"> RSS </a> <button id="theme-toggle" type="button" aria-label="Toggle theme" class="rounded-md p-2 text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark transition-colors"> <svg class="hidden dark:block h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2v2"></path> <path d="M12 20v2"></path> <path d="m4.93 4.93 1.41 1.41"></path> <path d="m17.66 17.66 1.41 1.41"></path> <path d="M2 12h2"></path> <path d="M20 12h2"></path> <path d="m6.34 17.66-1.41 1.41"></path> <path d="m19.07 4.93-1.41 1.41"></path> </svg> <svg class="block dark:hidden h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path> </svg> </button> <script type="module">const e=document.getElementById("theme-toggle");e?.addEventListener("click",()=>{const t=document.documentElement.classList.toggle("dark");try{localStorage.setItem("theme",t?"dark":"light")}catch{}});</script> </div> </div>  </header> <main class="flex-1 w-full">  <article class="mx-auto w-full max-w-5xl px-6 py-16"> <header class="mb-12 border-b border-border-light dark:border-border-dark pb-8"> <div class="mb-3 flex items-center gap-2 text-sm text-muted-light dark:text-muted-dark"> <time datetime="2026-06-17T00:00:00.000Z">2026年6月17日</time> <span aria-hidden="true">·</span> <span>5 min read</span> </div> <h1 class="text-4xl font-semibold tracking-tight md:text-5xl">密码机一小题</h1> <p class="mt-4 text-lg text-muted-light dark:text-muted-dark">题出自2025熵密杯Flag3，主要学习一下密码机的调用方式以及CFB相关的一些利用方式</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> ctf </span><span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> crypto </span><span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> writeup </span><span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> wp </span><span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> nctf </span> </div> </header> <div class="grid gap-12 md:grid-cols-[minmax(0,1fr)_240px]"> <div class="prose prose-neutral dark:prose-invert max-w-none">  <blockquote>
+<p>本题复现使用密码机为公司内部密码机，源码经过改造，数据也重新生成，因此和原题有出入。</p>
+</blockquote>
+<p>题目</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#F47067">#include</span><span style="color:#96D0FF"> &#x3C;stdlib.h></span></span>
+<span class="line"><span style="color:#F47067">#include</span><span style="color:#96D0FF"> &#x3C;stdio.h></span></span>
+<span class="line"><span style="color:#F47067">#include</span><span style="color:#96D0FF"> &#x3C;string.h></span></span>
+<span class="line"><span style="color:#F47067">#include</span><span style="color:#96D0FF"> &#x3C;time.h></span></span>
+<span class="line"><span style="color:#768390">//#include "sdf_cryptoapi.h"</span></span>
+<span class="line"><span style="color:#F47067">#include</span><span style="color:#96D0FF"> "bjcaErr.h"</span></span>
+<span class="line"><span style="color:#F47067">#include</span><span style="color:#96D0FF"> "bjcaSDF.h"</span></span>
+<span class="line"><span style="color:#F47067">#include</span><span style="color:#96D0FF"> "sgd_def.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">void</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7">devHandle </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">void</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7">sessionHandle </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">void</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7">keyHandle </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> char</span><span style="color:#ADBAC7"> encrypt_key_hex</span><span style="color:#F47067">[]</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "10ad014163a8cc6c864a2f0aa47983ba9b46dac3a3ecfbe9b03344d4bc52c081"</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">int</span><span style="color:#DCBDFB"> open_session</span><span style="color:#ADBAC7">() {</span></span>
+<span class="line"><span style="color:#F47067">    int</span><span style="color:#ADBAC7"> ret </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">    //打开设备</span></span>
+<span class="line"><span style="color:#768390">    //ret = SDF_OpenDeviceWithPath("./sdt_hsmcrypt.conf", &#x26;devHandle);</span></span>
+<span class="line"><span style="color:#ADBAC7">	ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> SDF_OpenDevice</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">&#x26;</span><span style="color:#ADBAC7">devHandle);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"SDF_OpenDeviceWithPath error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">    //打开会话</span></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> SDF_OpenSession</span><span style="color:#ADBAC7">(devHandle, </span><span style="color:#F47067">&#x26;</span><span style="color:#ADBAC7">sessionHandle);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"SDF_OpenSession error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#DCBDFB">        SDF_CloseDevice</span><span style="color:#ADBAC7">(devHandle);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">int</span><span style="color:#DCBDFB"> hex_string_to_char_array</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">const</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">hex</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">out</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">    size_t</span><span style="color:#ADBAC7"> hex_len </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> strlen</span><span style="color:#ADBAC7">(hex);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (hex_len </span><span style="color:#F47067">%</span><span style="color:#6CB6FF"> 2</span><span style="color:#F47067"> !=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">) </span><span style="color:#F47067">return</span><span style="color:#F47067"> -</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">;</span><span style="color:#768390"> // 奇数长度报错</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">    for</span><span style="color:#ADBAC7"> (</span><span style="color:#F47067">size_t</span><span style="color:#ADBAC7"> i </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">; i </span><span style="color:#F47067">&#x3C;</span><span style="color:#ADBAC7"> hex_len; i </span><span style="color:#F47067">+=</span><span style="color:#6CB6FF"> 2</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">        unsigned</span><span style="color:#F47067"> int</span><span style="color:#ADBAC7"> byte;</span></span>
+<span class="line"><span style="color:#F47067">        if</span><span style="color:#ADBAC7"> (</span><span style="color:#DCBDFB">sscanf</span><span style="color:#ADBAC7">(hex </span><span style="color:#F47067">+</span><span style="color:#ADBAC7"> i, </span><span style="color:#96D0FF">"</span><span style="color:#F47067">%2X</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">&#x26;</span><span style="color:#ADBAC7">byte) </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> 1</span><span style="color:#ADBAC7">) </span><span style="color:#F47067">return</span><span style="color:#F47067"> -</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">;</span><span style="color:#768390"> // 解析失败</span></span>
+<span class="line"><span style="color:#F69D50">        out</span><span style="color:#ADBAC7">[i </span><span style="color:#F47067">/</span><span style="color:#6CB6FF"> 2</span><span style="color:#ADBAC7">] </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> (</span><span style="color:#F47067">unsigned</span><span style="color:#F47067"> char</span><span style="color:#ADBAC7">) byte;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#ADBAC7"> hex_len </span><span style="color:#F47067">/</span><span style="color:#6CB6FF"> 2</span><span style="color:#ADBAC7">;</span><span style="color:#768390"> // 返回转换后的字节数</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">int</span><span style="color:#DCBDFB"> import_key</span><span style="color:#ADBAC7">() {</span></span>
+<span class="line"><span style="color:#F47067">    int</span><span style="color:#ADBAC7"> ret </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#F69D50"> encrypt_key</span><span style="color:#ADBAC7">[</span><span style="color:#6CB6FF">128</span><span style="color:#ADBAC7">] </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> {</span><span style="color:#96D0FF">'</span><span style="color:#F47067">\0</span><span style="color:#96D0FF">'</span><span style="color:#ADBAC7">};</span></span>
+<span class="line"><span style="color:#F47067">    const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> int</span><span style="color:#ADBAC7"> key_len </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 16</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    const</span><span style="color:#F47067"> int</span><span style="color:#ADBAC7"> inner_key_index </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 1</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> hex_string_to_char_array</span><span style="color:#ADBAC7">(encrypt_key_hex, encrypt_key);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret </span><span style="color:#F47067">&#x3C;</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"hex_string_to_char_array error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#DCBDFB">	printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"encrypt_key:</span><span style="color:#F47067">%s\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, encrypt_key);</span></span>
+<span class="line"><span style="color:#F47067">	for</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">int</span><span style="color:#ADBAC7"> i</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">; i</span><span style="color:#F47067">&#x3C;</span><span style="color:#6CB6FF">32</span><span style="color:#ADBAC7">; i</span><span style="color:#F47067">++</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">	{</span></span>
+<span class="line"><span style="color:#DCBDFB">		printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"</span><span style="color:#F47067">%02x</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, </span><span style="color:#F69D50">encrypt_key</span><span style="color:#ADBAC7">[i]);</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"><span style="color:#DCBDFB">	printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"</span><span style="color:#F47067">\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#ADBAC7">	</span></span>
+<span class="line"><span style="color:#ADBAC7">	ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> SDF_ImportKeyWithKEK</span><span style="color:#ADBAC7">(sessionHandle, SGD_SM4_ECB, inner_key_index, encrypt_key, </span><span style="color:#6CB6FF">32</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">&#x26;</span><span style="color:#ADBAC7">keyHandle);</span></span>
+<span class="line"><span style="color:#768390">	//ret = SDF_ImportKeyWithKEK(sessionHandle, SGD_SM4, inner_key_index, encrypt_key, key_len, &#x26;keyHandle);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"SDF_ImportKeyWithKEK error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">int</span><span style="color:#DCBDFB"> init</span><span style="color:#ADBAC7">() {</span></span>
+<span class="line"><span style="color:#F47067">    int</span><span style="color:#ADBAC7"> ret </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> open_session</span><span style="color:#ADBAC7">();</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"open_session error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> import_key</span><span style="color:#ADBAC7">();</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"import_key error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">int</span><span style="color:#DCBDFB"> close_session</span><span style="color:#ADBAC7">() {</span></span>
+<span class="line"><span style="color:#768390">    //关闭会话</span></span>
+<span class="line"><span style="color:#F47067">    int</span><span style="color:#ADBAC7"> ret </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> SDF_CloseSession</span><span style="color:#ADBAC7">(sessionHandle);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"SDF_CloseSession error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#DCBDFB">        SDF_CloseDevice</span><span style="color:#ADBAC7">(devHandle);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">    //关闭设备</span></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> SDF_CloseDevice</span><span style="color:#ADBAC7">(devHandle);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"SDF_CloseDevice error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">int</span><span style="color:#DCBDFB"> destroy</span><span style="color:#ADBAC7">() {</span></span>
+<span class="line"><span style="color:#F47067">    int</span><span style="color:#ADBAC7"> ret </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">    //销毁密钥句柄</span></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> SDF_DestroyKey</span><span style="color:#ADBAC7">(sessionHandle, keyHandle);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"[ts_symm] SDF_DestroyKey error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> close_session</span><span style="color:#ADBAC7">();</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"[ts_symm] close_session error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">int</span><span style="color:#DCBDFB"> encrypt_with_sm4_cfb</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">iv</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">plaintext</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">unsigned</span><span style="color:#F47067"> int</span><span style="color:#F69D50"> plaintext_len</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#F47067">                         unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">ciphertext</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#F47067">                         unsigned</span><span style="color:#F47067"> int</span><span style="color:#F47067"> *</span><span style="color:#F69D50">ciphertext_len</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#768390">    // TODO 此处代码已省略</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#DCBDFB">transform</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">input</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">size_t</span><span style="color:#F69D50"> in_len</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (in_len </span><span style="color:#F47067">&#x3C;</span><span style="color:#6CB6FF"> 16</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7">output </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> malloc</span><span style="color:#ADBAC7">(in_len </span><span style="color:#F47067">+</span><span style="color:#6CB6FF"> 1</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (output </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#DCBDFB">    memcpy</span><span style="color:#ADBAC7">(output, input, </span><span style="color:#6CB6FF">8</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#DCBDFB">    memcpy</span><span style="color:#ADBAC7">(output </span><span style="color:#F47067">+</span><span style="color:#6CB6FF"> 8</span><span style="color:#ADBAC7">, input </span><span style="color:#F47067">+</span><span style="color:#ADBAC7"> in_len </span><span style="color:#F47067">-</span><span style="color:#6CB6FF"> 8</span><span style="color:#ADBAC7">, </span><span style="color:#6CB6FF">8</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#DCBDFB">    memcpy</span><span style="color:#ADBAC7">(output </span><span style="color:#F47067">+</span><span style="color:#6CB6FF"> 8</span><span style="color:#F47067"> *</span><span style="color:#6CB6FF"> 2</span><span style="color:#ADBAC7">, input </span><span style="color:#F47067">+</span><span style="color:#6CB6FF"> 8</span><span style="color:#ADBAC7">, in_len </span><span style="color:#F47067">-</span><span style="color:#6CB6FF"> 8</span><span style="color:#F47067"> *</span><span style="color:#6CB6FF"> 2</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#F69D50">    output</span><span style="color:#ADBAC7">[in_len] </span><span style="color:#F47067">=</span><span style="color:#96D0FF"> '</span><span style="color:#F47067">\0</span><span style="color:#96D0FF">'</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#ADBAC7"> output;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#DCBDFB">pkcs7_padding</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">input</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">size_t</span><span style="color:#F69D50"> in_len</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">size_t</span><span style="color:#F69D50"> block_size</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">size_t</span><span style="color:#F47067"> *</span><span style="color:#F69D50">out_len</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#768390">    // TODO 此处代码已省略</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">const</span><span style="color:#F47067"> char</span><span style="color:#ADBAC7"> hex_table</span><span style="color:#F47067">[]</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "0123456789ABCDEF"</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">void</span><span style="color:#DCBDFB"> char_array_to_hex_string</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">src</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">size_t</span><span style="color:#F69D50"> len</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">dst</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">    for</span><span style="color:#ADBAC7"> (</span><span style="color:#F47067">size_t</span><span style="color:#ADBAC7"> i </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">; i </span><span style="color:#F47067">&#x3C;</span><span style="color:#ADBAC7"> len; i</span><span style="color:#F47067">++</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F69D50">        dst</span><span style="color:#ADBAC7">[</span><span style="color:#6CB6FF">2</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7"> i] </span><span style="color:#F47067">=</span><span style="color:#F69D50"> hex_table</span><span style="color:#ADBAC7">[(</span><span style="color:#F69D50">src</span><span style="color:#ADBAC7">[i] </span><span style="color:#F47067">>></span><span style="color:#6CB6FF"> 4</span><span style="color:#ADBAC7">) </span><span style="color:#F47067">&#x26;</span><span style="color:#F47067"> 0x</span><span style="color:#6CB6FF">0F</span><span style="color:#ADBAC7">];</span></span>
+<span class="line"><span style="color:#F69D50">        dst</span><span style="color:#ADBAC7">[</span><span style="color:#6CB6FF">2</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7"> i </span><span style="color:#F47067">+</span><span style="color:#6CB6FF"> 1</span><span style="color:#ADBAC7">] </span><span style="color:#F47067">=</span><span style="color:#F69D50"> hex_table</span><span style="color:#ADBAC7">[</span><span style="color:#F69D50">src</span><span style="color:#ADBAC7">[i] </span><span style="color:#F47067">&#x26;</span><span style="color:#F47067"> 0x</span><span style="color:#6CB6FF">0F</span><span style="color:#ADBAC7">];</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#F69D50">    dst</span><span style="color:#ADBAC7">[</span><span style="color:#6CB6FF">2</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7"> len] </span><span style="color:#F47067">=</span><span style="color:#96D0FF"> '</span><span style="color:#F47067">\0</span><span style="color:#96D0FF">'</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">// 加密地理位置经纬度</span></span>
+<span class="line"><span style="color:#F47067">int</span><span style="color:#DCBDFB"> encrypt_geo_location</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">iv</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">location</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">unsigned</span><span style="color:#F47067"> int</span><span style="color:#F69D50"> location_len</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#F47067">                         char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">ciphertext_hex</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#F47067">                         unsigned</span><span style="color:#F47067"> int</span><span style="color:#F47067"> *</span><span style="color:#F69D50">ciphertext_hex_len</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">    int</span><span style="color:#ADBAC7"> ret </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#F69D50"> buffer</span><span style="color:#ADBAC7">[</span><span style="color:#6CB6FF">1024</span><span style="color:#ADBAC7">] </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> {</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">};</span></span>
+<span class="line"><span style="color:#768390">    // 1. 转换格式</span></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7">transformed_location </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> transform</span><span style="color:#ADBAC7">(location, location_len);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">    // 2. 填充</span></span>
+<span class="line"><span style="color:#F47067">    size_t</span><span style="color:#ADBAC7"> padded_plaintext_len </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7">padded_plaintext </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> pkcs7_padding</span><span style="color:#ADBAC7">(transformed_location, location_len, </span><span style="color:#6CB6FF">16</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">&#x26;</span><span style="color:#ADBAC7">padded_plaintext_len);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (padded_plaintext </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#ADBAC7">        ret </span><span style="color:#F47067">=</span><span style="color:#F47067"> -</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"pkcs7_padding failed!"</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#DCBDFB">        free</span><span style="color:#ADBAC7">(transformed_location);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">    // 3. 加密</span></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> int</span><span style="color:#ADBAC7"> ciphertext_len </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> encrypt_with_sm4_cfb</span><span style="color:#ADBAC7">(iv, padded_plaintext, padded_plaintext_len, buffer, </span><span style="color:#F47067">&#x26;</span><span style="color:#ADBAC7">ciphertext_len);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"encrypt error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#DCBDFB">        free</span><span style="color:#ADBAC7">(transformed_location);</span></span>
+<span class="line"><span style="color:#DCBDFB">        free</span><span style="color:#ADBAC7">(padded_plaintext);</span></span>
+<span class="line"><span style="color:#DCBDFB">        free</span><span style="color:#ADBAC7">(iv);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#DCBDFB">    char_array_to_hex_string</span><span style="color:#ADBAC7">(buffer, ciphertext_len, ciphertext_hex);</span></span>
+<span class="line"><span style="color:#F47067">    *</span><span style="color:#ADBAC7">ciphertext_hex_len </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 2</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7"> ciphertext_len;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">    // 4. 清理</span></span>
+<span class="line"><span style="color:#DCBDFB">    free</span><span style="color:#ADBAC7">(transformed_location);</span></span>
+<span class="line"><span style="color:#DCBDFB">    free</span><span style="color:#ADBAC7">(padded_plaintext);</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">int</span><span style="color:#DCBDFB"> main</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">int</span><span style="color:#F69D50"> argc</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">argv</span><span style="color:#F47067">[]</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">    int</span><span style="color:#ADBAC7"> ret </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> char</span><span style="color:#ADBAC7"> location</span><span style="color:#F47067">[]</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "xxxxxxxxxxxxxxxxxxxx"</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> int</span><span style="color:#ADBAC7"> location_len </span><span style="color:#F47067">=</span><span style="color:#F47067"> sizeof</span><span style="color:#ADBAC7">(location) </span><span style="color:#F47067">-</span><span style="color:#6CB6FF"> 1</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> init</span><span style="color:#ADBAC7">();</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"init error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">    char</span><span style="color:#F69D50"> ciphertext_hex</span><span style="color:#ADBAC7">[</span><span style="color:#6CB6FF">1024</span><span style="color:#ADBAC7">] </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> {</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">};</span></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> int</span><span style="color:#ADBAC7"> ciphertext_hex_len </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#ADBAC7"> iv</span><span style="color:#F47067">[]</span><span style="color:#F47067"> =</span><span style="color:#ADBAC7"> {</span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> encrypt_geo_location</span><span style="color:#ADBAC7">(iv, location, location_len, ciphertext_hex, </span><span style="color:#F47067">&#x26;</span><span style="color:#ADBAC7">ciphertext_hex_len);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"encrypt error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#DCBDFB">    printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"encrypt ok</span><span style="color:#F47067">\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#DCBDFB">    printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"ciphertext_hex: </span><span style="color:#F47067">%s\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, (</span><span style="color:#F47067">char</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7">) ciphertext_hex);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> destroy</span><span style="color:#ADBAC7">();</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"destroy error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span></code></pre>
+<p>题目给了sdk密码机接口</p>
+<blockquote>
+<p>密码机是通过国家商密认证的硬件加密设备</p>
+</blockquote>
+<p>提供数据</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>m1:(113.8383,34.3784)</span></span>
+<span class="line"><span>c1:2F94CDFB99D065B37C5B8A6951417B434C8B21334DCC203438A1C01CCFD59D01</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>m2:(105.9434,37.9543)</span></span>
+<span class="line"><span>c2:2F94CCFD99D162B87C588A63534D7C437E6F11B8657CCC38F7FF24198A8EC42C</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>c3:2F94CEFA99DE64B879309669390A3A17F2919D80E57A03033D4D5F4FFC90D8B6C59EEFE11743637F9E0E82CEA6391A149BC52571433B6D5A778CE30EAFD879D6</span></span></code></pre>
+<p>已知两组明文密文，让我们求c3的内容
+一看，给iv了，那我直接看手册调函数不就行了？
+翻一下手册看看怎么解密
+![](.\assets\learn-crypto-3\Pasted image 20260630095703.png)
+按照参数直接带进去即可</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#F47067">int</span><span style="color:#DCBDFB"> main</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">int</span><span style="color:#F69D50"> argc</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">argv</span><span style="color:#F47067">[]</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">    int</span><span style="color:#ADBAC7"> ret </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> char</span><span style="color:#ADBAC7"> location</span><span style="color:#F47067">[]</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "xxxxxxxxxxxxxxxxxxxx"</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> int</span><span style="color:#ADBAC7"> location_len </span><span style="color:#F47067">=</span><span style="color:#F47067"> sizeof</span><span style="color:#ADBAC7">(location) </span><span style="color:#F47067">-</span><span style="color:#6CB6FF"> 1</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> init</span><span style="color:#ADBAC7">();</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"init error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">    // char ciphertext_hex[1024] = {0};</span></span>
+<span class="line"><span style="color:#768390">    // unsigned int ciphertext_hex_len = 0;</span></span>
+<span class="line"><span style="color:#768390">    // unsigned char iv[] = {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">    // ret = encrypt_geo_location(iv, location, location_len, ciphertext_hex, &#x26;ciphertext_hex_len);</span></span>
+<span class="line"><span style="color:#768390">    // if (ret) {</span></span>
+<span class="line"><span style="color:#768390">    //     printf("encrypt error, ret=%08x\n", ret);</span></span>
+<span class="line"><span style="color:#768390">    //     return ret;</span></span>
+<span class="line"><span style="color:#768390">    // }</span></span>
+<span class="line"><span style="color:#768390">    // printf("encrypt ok\n");</span></span>
+<span class="line"><span style="color:#768390">    // printf("ciphertext_hex: %s\n", (char *) ciphertext_hex);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#768390">    // ret = destroy();</span></span>
+<span class="line"><span style="color:#768390">    // if (ret) {</span></span>
+<span class="line"><span style="color:#768390">    //     printf("destroy error, ret=%08x\n", ret);</span></span>
+<span class="line"><span style="color:#768390">    // }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#F69D50"> ciphertext</span><span style="color:#ADBAC7">[</span><span style="color:#6CB6FF">1024</span><span style="color:#ADBAC7">] </span><span style="color:#F47067">=</span><span style="color:#96D0FF"> "2F94CEFA99DE64B879309669390A3A17F2919D80E57A03033D4D5F4FFC90D8B6C59EEFE11743637F9E0E82CEA6391A149BC52571433B6D5A778CE30EAFD879D6"</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#F69D50"> cipher</span><span style="color:#ADBAC7">[</span><span style="color:#6CB6FF">1024</span><span style="color:#ADBAC7">] </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> {</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">};</span></span>
+<span class="line"><span style="color:#DCBDFB">    hex_string_to_char_array</span><span style="color:#ADBAC7">(ciphertext, cipher);</span></span>
+<span class="line"><span style="color:#ADBAC7">    </span></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#ADBAC7"> iv</span><span style="color:#F47067">[]</span><span style="color:#F47067"> =</span><span style="color:#ADBAC7"> {</span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">, </span><span style="color:#96D0FF">'x'</span><span style="color:#ADBAC7">};</span></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#F69D50"> plaintext</span><span style="color:#ADBAC7">[</span><span style="color:#6CB6FF">1024</span><span style="color:#ADBAC7">] </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> {</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">};</span></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> int</span><span style="color:#ADBAC7"> plaintext_len </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">    ret </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> SDF_Decrypt</span><span style="color:#ADBAC7">(sessionHandle, keyHandle,SGD_SM4_CFB, iv, cipher, </span><span style="color:#F47067">sizeof</span><span style="color:#ADBAC7">(cipher), plaintext, </span><span style="color:#F47067">&#x26;</span><span style="color:#ADBAC7">plaintext_len);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (ret) {</span></span>
+<span class="line"><span style="color:#DCBDFB">        printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"decrypt error, ret=</span><span style="color:#F47067">%08x\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, ret);</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> ret;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#DCBDFB">    printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"decrypt ok</span><span style="color:#F47067">\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#DCBDFB">    printf</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"plaintext: </span><span style="color:#F47067">%s\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">, (</span><span style="color:#F47067">char</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7">) plaintext);</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#6CB6FF"> 0</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span></code></pre>
+<p>但是解出来发现前后缺失
+![](.\assets\learn-crypto-3\Pasted image 20260630100211.png)</p>
+<p>再回头观察发现还有两组明密文没有用，然后知道加密模式是CFB模式
+![](.\assets\learn-crypto-3\Pasted image 20260630100709.png)
+我们就可以知道第一块的key，又因为前面加密代码中iv的复用的，那么用于加密的数据也是一样的，我们就可以尝试用算出来的key去解第一块，方法也非常简单两个异或一下就行，但是要注意代码中把明文顺序调换了</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#F47067">unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#DCBDFB">transform</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">const</span><span style="color:#F47067"> unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#F69D50">input</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">size_t</span><span style="color:#F69D50"> in_len</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (in_len </span><span style="color:#F47067">&#x3C;</span><span style="color:#6CB6FF"> 16</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">    unsigned</span><span style="color:#F47067"> char</span><span style="color:#F47067"> *</span><span style="color:#ADBAC7">output </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> malloc</span><span style="color:#ADBAC7">(in_len </span><span style="color:#F47067">+</span><span style="color:#6CB6FF"> 1</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#F47067">    if</span><span style="color:#ADBAC7"> (output </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#6CB6FF"> NULL</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#DCBDFB">    memcpy</span><span style="color:#ADBAC7">(output, input, </span><span style="color:#6CB6FF">8</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#DCBDFB">    memcpy</span><span style="color:#ADBAC7">(output </span><span style="color:#F47067">+</span><span style="color:#6CB6FF"> 8</span><span style="color:#ADBAC7">, input </span><span style="color:#F47067">+</span><span style="color:#ADBAC7"> in_len </span><span style="color:#F47067">-</span><span style="color:#6CB6FF"> 8</span><span style="color:#ADBAC7">, </span><span style="color:#6CB6FF">8</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#DCBDFB">    memcpy</span><span style="color:#ADBAC7">(output </span><span style="color:#F47067">+</span><span style="color:#6CB6FF"> 8</span><span style="color:#F47067"> *</span><span style="color:#6CB6FF"> 2</span><span style="color:#ADBAC7">, input </span><span style="color:#F47067">+</span><span style="color:#6CB6FF"> 8</span><span style="color:#ADBAC7">, in_len </span><span style="color:#F47067">-</span><span style="color:#6CB6FF"> 8</span><span style="color:#F47067"> *</span><span style="color:#6CB6FF"> 2</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#F69D50">    output</span><span style="color:#ADBAC7">[in_len] </span><span style="color:#F47067">=</span><span style="color:#96D0FF"> '</span><span style="color:#F47067">\0</span><span style="color:#96D0FF">'</span><span style="color:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#ADBAC7"> output;</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span></code></pre>
+<p>然后写一下代码</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F47067">def</span><span style="color:#DCBDFB"> xor</span><span style="color:#ADBAC7">(a, b):</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#6CB6FF"> bytes</span><span style="color:#ADBAC7">([a[i] </span><span style="color:#F47067">^</span><span style="color:#ADBAC7"> b[i] </span><span style="color:#F47067">for</span><span style="color:#ADBAC7"> i </span><span style="color:#F47067">in</span><span style="color:#6CB6FF"> range</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">16</span><span style="color:#ADBAC7">)])</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">def</span><span style="color:#DCBDFB"> transform</span><span style="color:#ADBAC7">(s):</span></span>
+<span class="line"><span style="color:#ADBAC7">    a </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> s[:</span><span style="color:#6CB6FF">8</span><span style="color:#ADBAC7">]</span><span style="color:#F47067">+</span><span style="color:#ADBAC7">s[</span><span style="color:#6CB6FF">len</span><span style="color:#ADBAC7">(s)</span><span style="color:#F47067">-</span><span style="color:#6CB6FF">8</span><span style="color:#ADBAC7">:]</span><span style="color:#F47067">+</span><span style="color:#ADBAC7">s[</span><span style="color:#6CB6FF">8</span><span style="color:#ADBAC7">:</span><span style="color:#6CB6FF">len</span><span style="color:#ADBAC7">(s)</span><span style="color:#F47067">-</span><span style="color:#6CB6FF">8</span><span style="color:#ADBAC7">]</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#ADBAC7"> a</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">c1 </span><span style="color:#F47067">=</span><span style="color:#96D0FF"> "2F94CDFB99D065B37C5B8A6951417B434C8B21334DCC203438A1C01CCFD59D01"</span></span>
+<span class="line"><span style="color:#ADBAC7">c3 </span><span style="color:#F47067">=</span><span style="color:#96D0FF"> '2F94CEFA99DE64B879309669390A3A17F2919D80E57A03033D4D5F4FFC90D8B6C59EEFE11743637F9E0E82CEA6391A149BC52571433B6D5A778CE30EAFD879D6'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">c1 </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> bytes</span><span style="color:#ADBAC7">.fromhex(c1)</span></span>
+<span class="line"><span style="color:#ADBAC7">c3 </span><span style="color:#F47067">=</span><span style="color:#6CB6FF"> bytes</span><span style="color:#ADBAC7">.fromhex(c3)</span></span>
+<span class="line"><span style="color:#ADBAC7">m1 </span><span style="color:#F47067">=</span><span style="color:#F47067"> b</span><span style="color:#96D0FF">"(113.8383,34.3784)"</span></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(transform(m1))</span></span>
+<span class="line"><span style="color:#ADBAC7">key </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> xor(c1[:</span><span style="color:#6CB6FF">16</span><span style="color:#ADBAC7">], transform(m1)[:</span><span style="color:#6CB6FF">16</span><span style="color:#ADBAC7">])</span></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(key)</span></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(xor(key, c3[:</span><span style="color:#6CB6FF">16</span><span style="color:#ADBAC7">]))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#96D0FF">'''</span></span>
+<span class="line"><span style="color:#96D0FF">b'(113.83834.3784)3,'</span></span>
+<span class="line"><span style="color:#96D0FF">b'</span><span style="color:#F47067">\x07\xa5\xfc\xc8\xb7\xe8</span><span style="color:#96D0FF">V</span><span style="color:#F47067">\x8b</span><span style="color:#96D0FF">Oo</span><span style="color:#F47067">\xa4</span><span style="color:#96D0FF">ZfyOj'</span></span>
+<span class="line"><span style="color:#96D0FF">b'(122.6236_23_su}'</span></span>
+<span class="line"><span style="color:#96D0FF">'''</span></span></code></pre>
+<p>后八位就是我们要的flag，所以完整flag就是
+flag{shangmibei:this_is_a_flag,2026_6_23_su}</p>
+<h2 id="插曲">插曲</h2>
+<p>公司密码机只提供了linux的库，然后公司的密码机又需要vpn连接内网，同时公司的vpn又只支持windows没有linux，想了个办法只能通过流量转发，遂记录过程</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#F69D50">route</span><span style="color:#6CB6FF"> -p</span><span style="color:#96D0FF"> add</span><span style="color:#6CB6FF"> 10.10.0.0</span><span style="color:#96D0FF"> mask</span><span style="color:#6CB6FF"> 255.255.0.0</span><span style="color:#6CB6FF"> 1.1.1.1</span><span style="color:#96D0FF"> metric</span><span style="color:#6CB6FF"> 10</span></span></code></pre>  </div> <aside class="hidden md:block"> <nav class="sticky top-24 text-sm"><p class="mb-3 font-mono text-xs uppercase tracking-wider text-muted-light dark:text-muted-dark">
+on this page
+</p><ul class="space-y-2 border-l border-border-light dark:border-border-dark"><li><a href="#插曲" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark">插曲</a></li></ul></nav> </aside> </div> <footer class="mt-16 border-t border-border-light dark:border-border-dark pt-8 text-sm text-muted-light dark:text-muted-dark"> <a href="/blog" class="hover:text-fg-light dark:hover:text-fg-dark">← back to blog</a> </footer> </article>  </main> <footer class="border-t border-border-light dark:border-border-dark"> <div class="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-3 px-6 py-8 text-sm text-muted-light dark:text-muted-dark md:flex-row md:items-center"> <p>
+© 2026 oSthing. built with Astro.
+</p> <p class="font-mono text-xs"> <a href="/rss.xml" class="hover:text-fg-light dark:hover:text-fg-dark">rss</a> <span class="mx-2 opacity-50">·</span> <a href="/sitemap.xml" class="hover:text-fg-light dark:hover:text-fg-dark">sitemap</a> </p> </div> </footer> </body></html>
