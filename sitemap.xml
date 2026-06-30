@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://osthing.github.io</loc>
-    <lastmod>2026-06-30T09:59:52.927Z</lastmod>
+    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://osthing.github.io/blog</loc>
-    <lastmod>2026-06-30T09:59:52.927Z</lastmod>
+    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://osthing.github.io/projects</loc>
-    <lastmod>2026-06-30T09:59:52.927Z</lastmod>
+    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://osthing.github.io/links</loc>
-    <lastmod>2026-06-30T09:59:52.927Z</lastmod>
+    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://osthing.github.io/about</loc>
-    <lastmod>2026-06-30T09:59:52.927Z</lastmod>
+    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://osthing.github.io/contact</loc>
-    <lastmod>2026-06-30T09:59:52.927Z</lastmod>
+    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -69,6 +69,60 @@
   <url>
     <loc>https://osthing.github.io/blog/crypto-wp-3</loc>
     <lastmod>2026-06-30T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://osthing.github.io/blog/java-sec从0-5到1</loc>
+    <lastmod>2024-08-19T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://osthing.github.io/blog/java-sec从0-5到1-urldns链</loc>
+    <lastmod>2024-08-20T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://osthing.github.io/blog/commonscollections-1链</loc>
+    <lastmod>2024-08-20T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://osthing.github.io/blog/graycatctf2024-wp</loc>
+    <lastmod>2024-07-14T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://osthing.github.io/blog/osu-gamingctf2024-wp</loc>
+    <lastmod>2024-07-14T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://osthing.github.io/blog/python-pickle反序列化</loc>
+    <lastmod>2024-08-20T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://osthing.github.io/blog/prealctf2024-wp</loc>
+    <lastmod>2024-07-14T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://osthing.github.io/blog/python原型链污染笔记</loc>
+    <lastmod>2024-08-20T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://osthing.github.io/blog/从国赛想到的一些php绕过注释符trick</loc>
+    <lastmod>2024-07-14T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

