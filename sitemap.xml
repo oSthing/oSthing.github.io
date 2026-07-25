@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://osthing.github.io</loc>
-    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
+    <lastmod>2026-07-25T09:02:27.451Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://osthing.github.io/blog</loc>
-    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
+    <lastmod>2026-07-25T09:02:27.451Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://osthing.github.io/projects</loc>
-    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
+    <lastmod>2026-07-25T09:02:27.451Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://osthing.github.io/links</loc>
-    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
+    <lastmod>2026-07-25T09:02:27.451Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://osthing.github.io/about</loc>
-    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
+    <lastmod>2026-07-25T09:02:27.451Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://osthing.github.io/contact</loc>
-    <lastmod>2026-06-30T10:12:30.339Z</lastmod>
+    <lastmod>2026-07-25T09:02:27.451Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -123,6 +123,12 @@
   <url>
     <loc>https://osthing.github.io/blog/从国赛想到的一些php绕过注释符trick</loc>
     <lastmod>2024-07-14T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://osthing.github.io/blog/cryptocup2026</loc>
+    <lastmod>2026-07-25T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
